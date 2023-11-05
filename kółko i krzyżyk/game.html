@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="game.css" />
+    <link rel="shortcut icon" href="/assets/ikona.ico" />
+    <title>Gra</title>
+</head>
+<body>
+    <div class="glownyKontener">
+        <div class="naglowek">
+            <div class="graczJedenDiv">
+                <p id="Nickname1">Gracz 1 nick</p>
+            </div>
+            <div class="graczDwDiv">
+                <p id="Nickname2">CPU/Gracz 2</p>
+            </div>
+        </div>
+        <div class="czescWlasciwa">
+            <div class="kolko">
+                <img id="glowneKolko" src="/assets/kółko.png" alt="Kółko">
+            </div>
+            <div class="plansza">
+                <div class="rzad1">
+                    <div class="pole1">
+                        <img class="X" src="/assets/X.png" alt="X">
+                        <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                    <div class="pole2">
+                    <img class="X" src="/assets/X.png" alt="X">
+                    <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                    <div class="pole3">
+                    <img class="X" src="/assets/X.png" alt="X">
+                    <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                </div>
+                <div class="rzad2">
+                    <div class="pole1">
+                    <img class="X" src="/assets/X.png" alt="X">
+                    <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                    <div class="pole2">
+                    <img class="X" src="/assets/X.png" alt="X">
+                    <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                    <div class="pole3">
+                    <img class="X" src="/assets/X.png" alt="X">
+                    <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                </div>
+                <div class="rzad3">
+                    <div class="pole1">
+                    <img class="X" src="/assets/X.png" alt="X">
+                    <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                    <div class="pole2">
+                    <img class="X" src="/assets/X.png" alt="X">
+                    <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                    <div class="pole3">
+                    <img class="X" src="/assets/X.png" alt="X">
+                    <img class="O" src="/assets/kółko.png" alt="Kółko">
+                    </div>
+                </div>
+                <div class="Przyciski">
+                    <div class="Wyjscie">
+                        <a href="index.html">
+                            <button  class="Wyjscie">Menu</button>
+                        </a>
+                    </div>
+                    <div class="Reset gry">
+                        <a href="game.html">
+                            <button  class="Reset">Reset</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="krzyzyk">
+                <img id = "glownyKrzyzyk" src="/assets/X.png" alt="X">
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+    <audio src="/assets/start.mp3" id="startAudio"></audio>
+</body>
+</html>

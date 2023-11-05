@@ -1,0 +1,10 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(to right, #8277FF, #FF7777);
+    font-family: 'Bradley', Hand, cursive;
+}
+.Naglowek
+{
+    text-align: left;
+}

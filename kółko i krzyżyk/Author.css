@@ -1,0 +1,20 @@
+body
+{
+    background: linear-gradient(to right, #8277FF, #FF7777);
+    height: 100vh;
+    overflow: hidden;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+.Wyjscie
+{
+    background-color: transparent;
+    border-radius: 30px;
+    font-size: 30px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    margin-bottom: 10px;
+    width: 190px;
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+}

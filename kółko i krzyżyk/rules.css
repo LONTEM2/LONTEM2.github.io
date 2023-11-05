@@ -1,0 +1,44 @@
+body
+{
+    background: linear-gradient(to right, #8277FF, #FF7777);
+    height: 100vh;
+    overflow: hidden;
+}
+.Naglowek
+{
+    text-align: center;
+}
+.Lista
+{
+    font-family: Georgia, serif;
+    font-size: 25px;
+}
+.Pion
+{
+    block-size: 100px;
+}
+.Poziomo
+{
+    block-size: 100px;
+}
+.Ukos
+{
+    block-size: 100px;
+}
+.Remis
+{
+    block-size: 100px;
+    
+}
+.Wyjscie
+{
+    background-color: transparent;
+    border-radius: 30px;
+    font-size: 30px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    margin-bottom: 10px;
+    width: 190px;
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+}

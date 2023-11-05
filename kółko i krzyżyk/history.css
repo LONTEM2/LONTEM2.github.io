@@ -1,0 +1,130 @@
+body
+{
+    background: linear-gradient(to right, #8277FF, #FF7777);
+    height: 100vh;
+    
+    font-size: 30px;
+    
+}
+.Wyjscie
+{
+    background-color: transparent;
+    border-radius: 30px;
+    font-size: 30px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    width: 190px;
+    position: absolute;
+    top: 5px;
+
+}
+.glowny
+{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+    
+}
+.srodkowy {
+    width: 21vw;
+    margin-left: 1vw;
+    margin-top: 3vw;
+    height: 20vw;
+    background-color: blue;
+}
+.plansza
+{
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    width: 310px;
+    /* border: 3px dotted red; */
+}
+.kolko
+{
+    
+    display: inline-block;
+    width:20%;
+    height: 100%;
+    
+    /* filter: drop-shadow(0 0 15px #00d0ff); */
+    /* border: 3px dotted red; */
+}
+.plansza
+{
+    
+    display: inline-block;
+    width:60%;
+    height: 23vh;
+    font-size: 20px;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+
+    /* border: 3px dotted red; */
+}
+.krzyzyk
+{
+    display: inline-block;
+    height: 100%;
+    width:20%;
+    
+    /* -webkit-filter: drop-shadow(0 0 15px #ff0000); */
+    /* filter: drop-shadow(0 0 15px #ff0000); */
+    /* border: 3px dotted red; */
+}
+.rzad1
+{
+    /* border: 3px dotted blue; */
+    /* background-color: #aaa; */
+    border-bottom: 3px solid black;
+    height: 33%;
+}
+.rzad2
+{
+    /* border: 3px dotted blue; */
+    /* background-color: #aaa; */
+    border-bottom: 3px solid black;
+    height: 33%;
+    
+}
+.rzad3
+{
+    /* border: 3px dotted blue; */
+    /* background-color: #aaa; */
+    height: 33%;
+}
+.pole1
+{
+    /* border: 3px dotted blue; */
+    display: inline-block;
+    width: 30%;
+    border-right: 3px solid black;
+    height: 100%;
+    
+    
+}
+.pole2
+{
+    /* border: 3px dotted blue; */
+    display: inline-block;
+    width: 30%;
+    border-right: 3px solid black;
+    height: 100%;
+    
+    
+}
+.pole3
+{
+    /* border: 3px dotted blue; */
+    display: inline-block;
+    width: 30%;
+    height: 100%;
+}
+img
+{
+    width: 100%;
+}
+.plansza img {
+    display: none;
+    block-size: 100%;
+}
