@@ -52,3 +52,21 @@ select
     right:600px;
     top: 105px;
 }
+.dc
+{
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    block-size: 60px;
+    border-radius: 50%;
+    padding: 10px;
+}
+.yt
+{
+    position: absolute;
+    right: 75px;
+    bottom: 2px;
+    block-size: 60px;
+    border-radius: 50%;
+    padding: 10px;
+}

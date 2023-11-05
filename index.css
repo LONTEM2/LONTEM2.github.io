@@ -8,3 +8,21 @@ body {
 {
     text-align: left;
 }
+.dc
+{
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+    block-size: 60px;
+    border-radius: 50%;
+    padding: 10px;
+}
+.yt
+{
+    position: absolute;
+    left: 75px;
+    bottom: 2px;
+    block-size: 60px;
+    border-radius: 50%;
+    padding: 10px;
+}
