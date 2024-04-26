@@ -444,66 +444,9 @@ img
     }
 }
 
-
 @media only screen and (min-height: 700px)
 {
-    .Wyjscie
-    {
-        position: absolute;
-        right: 10px;
-        top: 220px;
-    }
-    .Reset
-    {
-        position: absolute;
-        right: 10px;
-        top: 250px;
-    }
-    .kolko
-    {
-        display: none;
-        width:40%;
-        height: 100%;
-        position: absolute;
-        left: 10px;
-        top: 14vh;
     
-    }
-    .krzyzyk
-    {
-        display: none;
-        height: 100%;
-        width:40%;
-        position: absolute;
-        right: 10px;
-        top: 14vh;
-    }
-    .plansza
-    {
-    
-        display: inline-block;
-        width:100%;
-        margin: 0 auto;
-        height: 50vh;
-
-        /* border: 3px dotted red; */
-    }
-    .graczJedenDiv
-    {
-        margin: 0 50px;
-        display: inline-block;
-        width:40%;
-        /* border: 3px dotted red; */
-        background-color: aqua;
-    }
-    .graczDwDiv
-    {   
-        margin: 0 50px;
-        display: inline-block;
-        width:40%;
-        /* border: 3px dotted red; */
-        background-color: rgb(253, 95, 95);
-    }
 }
 @media only screen and (min-height: 800px)
 {
@@ -582,7 +525,7 @@ img
     .kolko
     {
         display: none;
-        width:40%;
+        width:20%;
         height: 100%;
         position: absolute;
         left: 10px;
@@ -593,7 +536,7 @@ img
     {
         display: none;
         height: 100%;
-        width:40%;
+        width:20%;
         position: absolute;
         right: 10px;
         top: 14vh;
@@ -618,6 +561,70 @@ img
     }
     .graczDwDiv
     {   
+        margin: 0 50px;
+        display: inline-block;
+        width:40%;
+        /* border: 3px dotted red; */
+        background-color: rgb(253, 95, 95);
+    }
+}
+@media only screen and (min-height: 2000px)
+{
+    .Wyjscie
+    {   
+        
+        position: absolute;
+        right: 10px;
+        top: 1070px;
+        
+    }
+    .Reset
+    {
+        position: absolute;
+        right: 10px;
+        top: 1100px;
+    }
+    .kolko
+    {
+        display: none;
+        width:20%;
+        height: 100%;
+        position: absolute;
+        left: 10px;
+        top: 14vh;
+    
+    }
+    .krzyzyk
+    {
+        display: none;
+        height: 100%;
+        width:20%;
+        position: absolute;
+        right: 10px;
+        top: 14vh;
+    }
+    .plansza
+    {
+    
+        display: inline-block;
+        width:80%;
+        margin-top: 17vh;
+        height: 40vh;
+
+        /* border: 3px dotted red; */
+    }
+    .graczJedenDiv
+    {
+        font-size: 1vh;
+        margin: 0 50px;
+        display: inline-block;
+        width:40%;
+        /* border: 3px dotted red; */
+        background-color: aqua;
+    }
+    .graczDwDiv
+    {   
+        font-size: 1vh;
         margin: 0 50px;
         display: inline-block;
         width:40%;
