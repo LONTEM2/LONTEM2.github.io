@@ -67,7 +67,7 @@ function funkcjaPola(pole,rzad,kolumna) {
         ChangeShadow();
     }
     figureCount++;
-    if(figureCount >= 9) {
+    if(figureCount == 9) {
         drawMusic();
         SetWhiteShadow();
         SaveGame();
@@ -109,7 +109,7 @@ function heheMan() {
     audio.play();
 }
 function drawMusic() {
-    var audio = new Audio('/assets/draw.mp3');
+    var audio = new Audio('/assets/Draw.wav');
     audio.volume = 0.6;
     audio.play();
 }
