@@ -109,7 +109,7 @@ function heheMan() {
     audio.play();
 }
 function drawMusic() {
-    var audio = new Audio('/assets/Draw.wav');
+    var audio = new Audio('/assets/lego.mp3');
     audio.volume = 0.6;
     audio.play();
 }
