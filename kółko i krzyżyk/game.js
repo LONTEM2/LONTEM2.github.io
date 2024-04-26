@@ -67,7 +67,7 @@ function funkcjaPola(pole,rzad,kolumna) {
         ChangeShadow();
     }
     figureCount++;
-    if(figureCount == 9) {
+    if(figureCount >= 9) {
         drawMusic();
         SetWhiteShadow();
         SaveGame();
