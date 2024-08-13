@@ -1,0 +1,33 @@
+table {
+    background-color: lightblue;
+    margin: 0 auto;
+    margin-top: 90px;
+    
+}
+td {
+    width: 65px;
+    height: 65px;
+    border: 1px dotted blue;
+    text-align: center;
+}
+td:hover {
+    background-color: #8eb8c6;
+}
+td:active {
+    background-color: #5597ad;
+}
+.tileClicked {
+    background-color: #73cae7;
+}
+.tileClicked:hover {
+    background-color: #60abc4;
+}
+.tileClicked:active {
+    background-color: #5597ad;
+}
+body
+{
+    background: linear-gradient(to right, #8277FF, #FF7777);
+    height: 100vh;
+    overflow: hidden;
+}

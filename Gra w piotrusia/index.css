@@ -17,7 +17,7 @@ body
     display: inline-block;
     width: 20%;
     margin: 0 40%;
-    margin-top: 200px;
+    margin-top: 130px;
     
     
     
@@ -138,10 +138,6 @@ body
 
 .nazwagry
 {
-    margin: 0 auto;
-    margin-bottom: 40px;
-    position: absolute;
-    bottom: 600px;
-
-    
+    margin: 0 40%;
+    margin-top: 30px;
 }
