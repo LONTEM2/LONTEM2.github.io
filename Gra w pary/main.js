@@ -51,8 +51,10 @@ function tileClick(tile) {
         secondTileId = tile.id; //przypisanie id kafelka
         blockAndCheck(); //funkcja blokująca zaznaczanie i sprawdzenie poprawności zaznaczenia
         isFirstClicked = false; //wyzerowanie opcji
+        ClickMusic()
     }
     else {
+        ClickMusic()
         firstTileId = tile.id; //przypisanie id kafelka
         isFirstClicked = true;
     }
@@ -87,4 +89,10 @@ function verifyTiles() {
         firstEle.removeChild(firstEle.children.item(0)); //usunięcie obrazka z komórki
         secondEle.removeChild(secondEle.children.item(0)); //usunięcie obrazka z komórki
     }
+}
+
+function ClickMusic() {
+    var audio = new Audio('/assets/click.mp3');
+    audio.volume = 0.03;
+    audio.play();
 }

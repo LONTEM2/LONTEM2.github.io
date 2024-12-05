@@ -1,0 +1,12 @@
+body
+{
+    background: linear-gradient(to right, #8277FF, #FF7777);
+    height: 100vh;
+    overflow: hidden;
+}
+select
+{
+    background-color: transparent;
+    border-radius: 30px;
+
+}
