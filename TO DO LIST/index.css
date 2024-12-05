@@ -1,0 +1,89 @@
+:root
+{
+    --glowny-color: #8D6852;
+    --drugi-color: #efef3f;
+    --trzeci-color: #FBEFDF;
+    --czwarty-color: #462E25;
+}
+
+
+body
+{
+    background-color: var(--glowny-color);
+    font-family: 'Comic Sans MS';
+}
+button
+{
+    background: none;
+    border: none;
+}
+#wczytaj, #zapisz, #tytylk
+{
+    display: inline-block;
+    margin-left: 10px;
+}
+#kwadrat
+{
+    width: 600px;
+    height: 300px;
+    overflow-y: auto;
+    margin: 0 auto;
+    color: white;
+    padding: 10px;
+}
+#tkwadratu
+{
+    width: 700px;
+    height: 600px;
+    background-color:  var(--trzeci-color);
+    border-radius: 5%;
+    margin: 0 auto;
+    margin-top: 5%;
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+#tytylkwadratu
+{
+    text-align: center;
+    color: var(--czwarty-color);
+}
+
+section
+{
+    margin: 0 auto;
+    background-color: var(--glowny-color);
+    border-radius: 10px;
+    color: white;
+}
+section:hover
+{
+    background-color: var(--czwarty-color);
+}
+section button
+{
+    color: white;
+    font-size: 20px;
+}
+#dodaj
+{
+    padding: 50px;
+
+}
+#plus
+{
+    font-size: 20px;
+}
+#dodawanie
+{
+    color: white;
+    margin-left: 30%;
+    clear: both;
+    background-color: var(--czwarty-color);
+    height: 70px;
+    width: 200px;
+    border-radius: 5%;
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+#tytylkwadratu
+{
+    color: var(--czwarty-color);
+}
