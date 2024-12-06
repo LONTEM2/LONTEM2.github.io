@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TO DO LIST</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="main.css">
     <link rel="shortcut icon" href="/assets/favicontodo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -18,15 +18,19 @@
                 <button id="zapisz" onclick="zapisz()"><i class="fa-solid fa-floppy-disk"></i></button>
             </div>
             <div id="kwadrat">
-
             </div>
             <div id="dodaj">
-                <button id="dodawanie"><i id="plus" class="fa-duotone fa-solid fa-plus"></i></button>
+                <button id="dodawanie" onclick="dodaj()"><i id="plus" class="fa-duotone fa-solid fa-plus"></i></button>
+                <div class="edytuj" id="edytujj">
+                    <input id="input" type="text" placeholder="Tytuł"  ><hr>
+                    <textarea id="txtarea" placeholder="Opis..." value="fss"></textarea>
+                    <button onclick="schowaj()"><i id="plus" class="fa-duotone fa-solid fa-plus"></i></button>
+                </div>
             </div>
         </div>
     </div>
 </body>
-<script src="index.js"></script>
+<script src="script.js"></script>
 </html>
 
 <!-- 

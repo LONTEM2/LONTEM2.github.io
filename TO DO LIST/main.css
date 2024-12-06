@@ -87,3 +87,46 @@ section button
 {
     color: var(--czwarty-color);
 }
+.edytuj {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--trzeci-color);
+    border: 1px solid var(--glowny-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    z-index: 1000;
+    height: 350px;
+    width: 500px;
+    border-radius: 5%;
+}
+.edytuj button
+{
+    position: fixed;
+    top: 80%;
+    left: 30%;
+    background-color: var(--czwarty-color);
+    height: 70px;
+    width: 200px;
+    border-radius: 5%;
+}
+#input, #txtarea
+{
+    background: none;
+    border: none;
+    color: var(--czwarty-color);
+}
+#input
+{
+    width: 496px;
+    height: 40px;
+}
+#txtarea
+{
+    height: 168px;
+    width: 496px;
+    background-color: transparent;
+    border: 1px solid var(--czwarty-color);
+}
