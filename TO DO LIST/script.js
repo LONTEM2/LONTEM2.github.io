@@ -24,7 +24,6 @@ function usun(id)
 function zaznacz() //do poprawy bo nie działa jak chce
 {
     let sekcja = document.getElementById("sekcja");
-    sekcja.innerHTML = '<h1>Tytuł</h1>Opis tak długi ile mu miejsca starczy i tak dalej i tak dalej <button id="edytuj" onclick="edytuj()"><i class="fa-solid fa-pen"></i></button><button id="usun" onclick="usun()"><i class="fa-solid fa-trash"></i></button> <button id="odznacz" onclick="odznacz()"><i class="fa-solid fa-circle-check"></i></button>';
 }
 function dodaj()
 {
@@ -49,6 +48,11 @@ function schowaj() {
     utworz();
 }
 
+function edytuj()
+{
+    console.log("edytuj!!!");
+}
+
 function utworz() 
 {
     
@@ -56,6 +60,39 @@ function utworz()
     const nowyDiv = document.createElement('section');
     nowyDiv.id = 'Task-'+licznik;
     nowyDiv.className = 'sekcja';
-    nowyDiv.innerHTML = '<h2>'+localStorage.getItem('Tytul')+'</h2>'+localStorage.getItem('Opis')+'<button id="edytuj" onclick="edytuj()"><i class="fa-solid fa-pen"></i></button><button id="usun" onclick="usun()"><i class="fa-solid fa-trash"></i></button> <button id="odznacz" onclick="odznacz()"><i class="fa-solid fa-circle-check"></i></button>';
     document.getElementById('kwadrat').appendChild(nowyDiv);
+
+    let naglowek = document.createElement('h2');
+    naglowek.textContent = localStorage.getItem('Tytul');
+    nowyDiv.appendChild(naglowek);
+
+    let opisDiv = document.createElement('div');
+    opisDiv.className = 'opis-container';
+    nowyDiv.appendChild(opisDiv);
+
+    let opis = document.createElement('p');
+    opis.textContent = localStorage.getItem('Opis');
+    opisDiv.appendChild(opis);
+
+    let przycisk1 = document.createElement('button');
+    przycisk1.id = 'edytuj';
+    przycisk1.addEventListener('click', edytuj);
+    przycisk1.innerHTML = '<i class="fa-solid fa-pen"></i>';
+    opisDiv.appendChild(przycisk1);
+
+    let przycisk2 = document.createElement('button');
+    przycisk2.id = 'usun';
+    przycisk2.addEventListener('click', function() {
+        usun(nowyDiv.id);
+    });
+    przycisk2.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    opisDiv.appendChild(przycisk2);
+
+    let przycisk3 = document.createElement('button');
+    przycisk3.id = 'zaznacz';
+    przycisk3.addEventListener('click', zaznacz);
+    przycisk3.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    opisDiv.appendChild(przycisk3);
+
+    
 }

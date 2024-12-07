@@ -130,3 +130,15 @@ section button
     background-color: transparent;
     border: 1px solid var(--czwarty-color);
 }
+
+.opis-container 
+{
+    display: flex;          
+    align-items: center;
+}
+
+.sekcja 
+{
+    margin: 20px 0;          
+    height: 100px;
+}
