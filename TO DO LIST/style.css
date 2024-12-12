@@ -111,24 +111,71 @@ section button
     height: 70px;
     width: 200px;
     border-radius: 5%;
+    color: white;
 }
-#input, #txtarea
+input, #txtarea
 {
     background: none;
     border: none;
     color: var(--czwarty-color);
+    font-family: 'Comic Sans MS';
 }
-#input
+input
 {
     width: 496px;
     height: 40px;
+    color: var(--czwarty-color);
+    font-size: 25px;
 }
+input::placeholder
+{
+    color: var(--czwarty-color);
+    font-family: 'Comic Sans MS';
+    font-size: 25px;
+}
+
+input:focus {
+    outline: none;
+    border: none; 
+}
+
+hr
+{
+    border: 0;
+    height: 1px;
+    background-color: var(--czwarty-color);
+}
+
 #txtarea
 {
     height: 168px;
     width: 496px;
     background-color: transparent;
     border: 1px solid var(--czwarty-color);
+    font-family: 'Comic Sans MS';
+    font-size: 15px;
+}
+#txtarea::placeholder
+{
+    color: var(--czwarty-color);
+    font-family: 'Comic Sans MS';
+    font-size: 15px;
+}
+
+#txtarea2
+{
+    height: 168px;
+    width: 496px;
+    background-color: transparent;
+    border: 1px solid var(--czwarty-color);
+    font-family: 'Comic Sans MS';
+    font-size: 15px;
+}
+#txtarea2::placeholder
+{
+    color: var(--czwarty-color);
+    font-family: 'Comic Sans MS';
+    font-size: 15px;
 }
 
 .opis-container 
@@ -141,4 +188,28 @@ section button
 {
     margin: 20px 0;          
     height: 100px;
+}
+
+.przyciski
+{
+    padding-left: 400px;
+    margin-top: -66px;
+}
+
+#edytuj, #usun, #zaznacz
+{
+    padding: 15px;
+}
+
+.opis1
+{
+    width: 400px; /* Dopasuj szerokość do potrzeb */
+    white-space: nowrap; /* Nie pozwala na zawijanie tekstu */
+    overflow: hidden; /* Ukrywa tekst, który nie mieści się w polu */
+    text-overflow: ellipsis; /* Dodaje "..." na końcu */
+    margin-left: 10px;
+}
+.Tytul1
+{
+    margin-left: 10px;
 }
