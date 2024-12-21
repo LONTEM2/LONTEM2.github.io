@@ -1,0 +1,146 @@
+/* Podstawowy styl */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #6e7bff, #ff73e7);
+    color: #fff;
+}
+
+/* Menu */
+.menu-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.menu-item {
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: #ff73e7;
+    border-radius: 5px;
+}
+
+/* Styl dla rozwijanej listy */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    min-width: 160px;
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    top: 100%; /* Pojawia się poniżej elementu */
+    left: 0; /* Wyrównanie do lewej krawędzi */
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    color: #d1d1d1; /* Jaśniejszy kolor tekstu */
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #ff73e7;
+    color: #fff; /* Jaśniejszy tekst na hover */
+    border-radius: 5px;
+}
+
+/* Sekcja z głównym tekstem */
+#home {
+    text-align: center;
+    padding: 50px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+#home h1 {
+    font-size: 36px;
+}
+
+#home p {
+    font-size: 18px;
+}
+
+/* Przyciski społecznościowe */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.social-button {
+    display: inline-block;
+    background-color: #7289da;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.social-button:hover {
+    background-color: #5b6eaa;
+}
+
+/* Stylizacja kontaktu */
+#contact {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 50px 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin-top: 50px;
+    color: #fff;
+}
+
+/* Ciekawe efekty dla rozwijanej listy */
+.menu-item.dropdown {
+    position: relative;
+}
+
+.menu-item.dropdown:hover .dropdown-content {
+    display: block;
+    animation: dropdown-appear 0.3s ease-out forwards;
+}
+
+@keyframes dropdown-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

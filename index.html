@@ -3,38 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="index.css" />
-    <link rel="shortcut icon" href="assets/ikona.ico" />
-    <title>GRY</title>
+    <title>Moje Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="glownykontener">
-        <div class="Naglowek">
-            <h1>Gry:</h1>
+    <header>
+        <div class="menu-container">
+            <div class="menu">
+                <a href="index.html" class="menu-item">Strona Główna</a>
+                <div class="menu-item dropdown">
+                    <a href="#" class="menu-link">Użyteczne</a>
+                    <div class="dropdown-content">
+                        <a href="/TO DO LIST/index.html">To-Do List</a>
+                    </div>
+                </div>
+                <div class="menu-item dropdown">
+                    <a href="#" class="menu-link">Gry</a>
+                    <div class="dropdown-content">
+                        <a href="/kółko i krzyżyk/index.html">Kółko i Krzyżyk</a>
+                        <a href="/Gra w pary/index.html">Gry w Pary</a>
+                    </div>
+                </div>
+                <a href="#contact" class="menu-item">Kontakt</a>
+            </div>
         </div>
-        <div class="Lista Gier">
-            <ul>
-                <li><a href="kółko i krzyżyk/index.html">Kółko i krzyżyk</a></li>
-                <li><a href="Gra w pary/index.html">Gra w pary</a></li>
-            </ul>
+    </header>
+
+    <section id="home">
+        <h1>Witaj na mojej stronie!</h1>
+        <p>Cześć! Jestem Michał, a ta strona jest moim portfolio. Chciałbym pokazać Ci moje projekty, narzędzia oraz gry, które stworzyłem. Moim celem jest rozwijanie swoich umiejętności w różnych dziedzinach, w tym programowaniu i tworzeniu gier.</p>
+        <p>Na tej stronie znajdziesz narzędzia, które mogą pomóc Ci w codziennym życiu, jak również gry do zabawy. Celem tej strony jest także zaprezentowanie moich umiejętności i pasji do tworzenia interaktywnych aplikacji.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Kontakt</h2>
+        <p>Jeśli chcesz się ze mną skontaktować, napisz do mnie na e-mail <a href="mailto:wojewnikmichal@gmail.com">wojewnikmichal@gmail.com</a> lub odwiedź moje profile w mediach społecznościowych.</p>
+        <div class="social-buttons">
+            <a href="https://discord.com/users/_lontem_" class="social-button" target="_blank">
+                <i class="fab fa-discord"></i> Discord
+            </a>
         </div>
-        <div class="Lista Użytecznych rzeczy">
-            <h1>Lista Użytecznych rzeczy:</h1>
-        </div>
-            <ul>
-                <li><a href="TO DO LIST/index.html">TO DO LIST</a></li>
-            </ul>
-        </div>
-    </div>
-    <div>
-        <a href="https://discord.gg/BYpfvAnutj">
-           <img class="dc" src="/assets/dc.png" alt="dc">
-        </a>
-    </div>
-    <div>
-        <a href="https://www.youtube.com/channel/UC6GbOEEhjIzUiV8HUxc5RyQ">
-           <img class="yt" src="/assets/yt.png" alt="dc">
-        </a>
-    </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Moje Portfolio</p>
+    </footer>
+
 </body>
 </html>
