@@ -203,13 +203,17 @@ hr
 
 .opis1
 {
-    width: 400px; /* Dopasuj szerokość do potrzeb */
-    white-space: nowrap; /* Nie pozwala na zawijanie tekstu */
-    overflow: hidden; /* Ukrywa tekst, który nie mieści się w polu */
-    text-overflow: ellipsis; /* Dodaje "..." na końcu */
+    width: 400px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
     margin-left: 10px;
 }
 .Tytul1
 {
     margin-left: 10px;
+}
+.zaznaczone .Tytul1,
+.zaznaczone .opis1 {
+    text-decoration: line-through; 
 }
