@@ -32,12 +32,17 @@ button
     background: none;
     border: none;
 }
-#wczytaj, #zapisz, #tytylk
+#loadFromJson, #saveToJson, #title1
 {
     display: inline-block;
     margin-left: 10px;
 }
-#kwadrat
+#loadFromJson, #saveToJson
+{
+    font-size: large;
+    color: var(--czwarty-color);
+}
+#square
 {
     width: 600px;
     height: 300px;
@@ -46,7 +51,7 @@ button
     color: white;
     padding: 10px;
 }
-#tkwadratu
+#tsquare
 {
     width: 700px;
     height: 600px;
@@ -56,12 +61,11 @@ button
     margin-top: 5%;
     box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
 }
-#tytylkwadratu
+#backgroundSquare
 {
     text-align: center;
     color: var(--czwarty-color);
 }
-
 section
 {
     margin: 0 auto;
@@ -78,7 +82,7 @@ section button
     color: white;
     font-size: 20px;
 }
-#dodaj
+#add
 {
     padding: 50px;
 
@@ -87,7 +91,7 @@ section button
 {
     font-size: 20px;
 }
-#dodawanie
+#adding
 {
     color: white;
     margin-left: 30%;
@@ -98,11 +102,11 @@ section button
     border-radius: 5%;
     box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
 }
-#tytylkwadratu
+#backgroundSquare
 {
     color: var(--czwarty-color);
 }
-.edytuj {
+.edit {
     display: none;
     position: fixed;
     top: 50%;
@@ -117,7 +121,7 @@ section button
     width: 500px;
     border-radius: 5%;
 }
-.edytuj button
+.edit button
 {
     position: fixed;
     top: 80%;
@@ -193,30 +197,30 @@ hr
     font-size: 15px;
 }
 
-.opis-container 
+/* .opis-container 
 {
     display: flex;          
     align-items: center;
-}
+} */
 
-.sekcja 
+.section 
 {
     margin: 20px 0;          
     height: 100px;
 }
 
-.przyciski
+.buttons
 {
     padding-left: 400px;
     margin-top: -66px;
 }
 
-#edytuj, #usun, #zaznacz
-{
+.editButton, .deleteButton, .checkButton {
     padding: 15px;
+
 }
 
-.opis1
+.Description1
 {
     width: 400px; 
     white-space: nowrap; 
@@ -224,11 +228,35 @@ hr
     text-overflow: ellipsis; 
     margin-left: 10px;
 }
-.Tytul1
+.Title1
 {
     margin-left: 10px;
 }
-.zaznaczone .Tytul1,
-.zaznaczone .opis1 {
-    text-decoration: line-through; 
+
+.cheked
+{
+    background-color: #362620;
+    text-decoration: line-through;
+    opacity: 0.9;
+}
+.cheked:hover
+{
+    background-color: #2b2320;
+}
+
+textarea::-webkit-scrollbar, #square::-webkit-scrollbar {
+    width: 10px; 
+}
+textarea::-webkit-scrollbar-track, #square::-webkit-scrollbar-track {
+    background: #f0e5d8;
+    border-radius: 6px;
+}
+textarea::-webkit-scrollbar-thumb, #square::-webkit-scrollbar-thumb {
+    background: var(--glowny-color);
+    border-radius: 6px;
+    border: 2px solid #f0e5d8;
+}
+
+textarea, #square {
+    overflow-y: scroll;
 }

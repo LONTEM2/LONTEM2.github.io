@@ -11,27 +11,27 @@
 
 </head>
 <body>
-    <div id="glowny">
-        <div id="tkwadratu">
-            <div id="tytylkwadratu">
-                <h1 id="tytylk">TO DO LIST</h1>
-                <button id="wczytaj" onclick="wczytaj()"><i class="fa-sharp fa-solid fa-file-import"></button></i>
-                <button id="zapisz" onclick="zapisz()"><i class="fa-solid fa-floppy-disk"></i></button>
+    <div id="main">
+        <div id="tsquare">
+            <div id="backgroundSquare">
+                <h1 id="title1">TO DO LIST</h1>
+                <button id="loadFromJson" onclick="loadFromJson()"><i class="fa-sharp fa-solid fa-file-import"></button></i>
+                <button id="saveToJson" onclick="saveToJson()"><i class="fa-solid fa-floppy-disk"></i></button>
             </div>
-            <div id="kwadrat">
+            <div id="square">
             </div>
-            <div id="dodaj">
-                <button id="dodawanie" onclick="dodaj()"><i id="plus" class="fa-duotone fa-solid fa-plus"></i></button>
-                <div class="edytuj" id="edytujj">
-                    <input id="input" type="text" placeholder="Tytuł" required ><hr>
-                    <textarea id="txtarea" placeholder="Opis..." required></textarea>
-                    <button onclick="schowaj()"><i id="plus" class="fa-duotone fa-solid fa-plus"></i></button>
+            <div id="add">
+                <button id="adding" onclick="showAddWindow(null,null)"><i id="plus" class="fa-duotone fa-solid fa-plus"></i></button>
+                <div class="edit" id="addWindow">
+                    <input id="input" type="text" placeholder="Title" required ><hr>
+                    <textarea id="txtarea" placeholder="Description..." required></textarea>
+                    <button onclick="addNewNote()"><i id="plus" class="fa-duotone fa-solid fa-plus"></i></button>
                 </div>
             </div>
-            <div id="zmieniaj">
-                <div class="edytuj" id="zmien">
-                    <input id="input2" type="text" placeholder="Tytuł" required ><hr>
-                    <textarea id="txtarea2" placeholder="Opis..." required></textarea>
+            <div id="change">
+                <div class="edit" id="change">
+                    <input id="input2" type="text" placeholder="Title" required ><hr>
+                    <textarea id="txtarea2" placeholder="Description..." required></textarea>
                     <button onclick="schowaj2()"><i id="plus" class="fa-solid fa-pen"></i></button>
                 </div>
             </div>
@@ -41,12 +41,5 @@
         </div>
     </div>
 </body>
-<script src="script.js"></script>
+<script src="script2.js"></script>
 </html>
-
-<!-- 
-
-<button id="odznacz" onclick="odznacz()"><i class="fa-solid fa-circle-check"></i></button> // odznaczenie
-<button id="zaznacz" onclick="zaznacz()"><i class="fa-regular fa-circle-check"></i></button> // zaznaczenie
-
--->

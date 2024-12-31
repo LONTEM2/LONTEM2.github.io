@@ -2,6 +2,17 @@ let notatka = [];
 let licznik = 0;
 let licznik2 = 0;
 
+// window.addEventListener('load', () => {
+//     const savedNotatki = localStorage.getItem('notatki');
+//     if (savedNotatki) {
+//         notatka = JSON.parse(savedNotatki);
+//         notatka.forEach((n, index) => {
+//             utworzElementNotatki(n, index);
+//         });
+//         licznik = notatka.length;
+//     }
+// });
+
 window.addEventListener('load', () => {
     const savedNotatki = localStorage.getItem('notatki');
     if (savedNotatki) {
