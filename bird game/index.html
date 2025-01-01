@@ -5,10 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bird Game</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="/menu gier/assets/yellowbird-midflap.png" type="image/x-icon">
 </head>
 <body>
   <a href="\index.html"><button id="menu">Menu</button></a>
   <canvas id="gameCanvas" width="400" height="600"></canvas>
-  <script src="script.js"></script>
+  
+  <!-- Załadowanie Supabase przez CDN -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    window.supabase = createClient('https://fpdjsmcphboosmokzsfy.supabase.co', 'your_supabase_key_here');
+  </script>
+
+  <!-- Załadowanie skryptu gry -->
+  <script type="module" src="script.js"></script>
 </body>
 </html>
