@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bird Game</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="/menu gier/assets/yellowbird-midflap.png" type="image/x-icon">
+  <link rel="shortcut icon" href="/menu%20gier/assets/yellowbird-midflap.png" type="image/x-icon">
+  
+  <!-- Załadowanie Supabase przez CDN -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    window.supabase = createClient('https://fpdjsmcphboosmokzsfy.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwZGpzbWNwaGJvb3Ntb2t6c2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU3Mzk3NTksImV4cCI6MjA1MTMxNTc1OX0.J5nXdIE31PAWHYtMqeaFEdpxfE_HWyywJBORDMmXbq4');
+  </script>
 </head>
 <body>
   <a href="\index.html"><button id="menu">Menu</button></a>
   <canvas id="gameCanvas" width="400" height="600"></canvas>
-
-  <!-- Załadowanie Supabase przez CDN z modułowym systemem importów -->
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-    window.supabase = createClient('https://fpdjsmcphboosmokzsfy.supabase.co', 'your_supabase_key_here');
-  </script>
   
   <!-- Załadowanie skryptu gry -->
   <script type="module" src="script.js"></script>
