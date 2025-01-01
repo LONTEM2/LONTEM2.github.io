@@ -11,8 +11,11 @@
   <a href="\index.html"><button id="menu">Menu</button></a>
   <canvas id="gameCanvas" width="400" height="600"></canvas>
 
-  <!-- Załadowanie Supabase z lokalnego pliku -->
-  <script src="../libs/supabase.js"></script>
+  <!-- Załadowanie Supabase przez CDN z modułowym systemem importów -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    window.supabase = createClient('https://fpdjsmcphboosmokzsfy.supabase.co', 'your_supabase_key_here');
+  </script>
   
   <!-- Załadowanie skryptu gry -->
   <script type="module" src="script.js"></script>
