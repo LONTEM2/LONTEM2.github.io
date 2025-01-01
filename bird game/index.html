@@ -7,17 +7,21 @@
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="/menu%20gier/assets/yellowbird-midflap.png" type="image/x-icon">
   
-  <!-- Załadowanie Supabase przez CDN -->
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-    window.supabase = createClient('https://fpdjsmcphboosmokzsfy.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwZGpzbWNwaGJvb3Ntb2t6c2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU3Mzk3NTksImV4cCI6MjA1MTMxNTc1OX0.J5nXdIE31PAWHYtMqeaFEdpxfE_HWyywJBORDMmXbq4');
-  </script>
+  <!-- Załadowanie Supabase przez CDN (wersja kompatybilna z GitHub Pages) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/supabase.js"></script>
+  
 </head>
 <body>
   <a href="\index.html"><button id="menu">Menu</button></a>
   <canvas id="gameCanvas" width="400" height="600"></canvas>
   
   <!-- Załadowanie skryptu gry -->
+  <script type="module">
+    const supabaseUrl = 'https://fpdjsmcphboosmokzsfy.supabase.co';
+    const supabaseKey = 'your_supabase_key_here';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    window.supabase = supabase; // Przechowanie obiektu supabase w globalnym oknie
+  </script>
   <script type="module" src="script.js"></script>
 </body>
 </html>
