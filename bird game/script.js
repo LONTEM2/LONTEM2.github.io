@@ -158,6 +158,7 @@ function update() {
     if (pipe.x + pipeWidth < 0) {
       pipes.splice(index, 1);
       score++;
+      point_sound();
     }
   });
 
@@ -194,13 +195,15 @@ function startGame() {
   userName = document.getElementById("userName").value.trim();
   if (userName === "") {
     alert("Please enter a valid name!");
-    return;
+    return; // Zatrzymanie gry, jeśli nie ma nazwy
   }
   nameForm.style.display = "none"; // Ukrycie formularza
   resetGame();
 }
 
-document.getElementById("startButton").addEventListener("click", startGame);
+document.getElementById("startButton").addEventListener("click", function() {
+  startGame();
+});
 
 // Resetowanie gry
 function resetGame() {
@@ -222,6 +225,7 @@ document.addEventListener("keydown", (e) => {
       resetGame();
     } else {
       jump();
+      wing_sound();
     }
   }
 });
@@ -232,6 +236,7 @@ canvas.addEventListener("click", () => {
     resetGame();
   } else {
     jump();
+    wing_sound();
   }
 });
 
@@ -256,3 +261,14 @@ controlsDescription.style.borderRadius = "10px";
 controlsDescription.style.backgroundColor = "#333";
 controlsDescription.style.textAlign = "left";
 document.body.appendChild(controlsDescription);
+
+function point_sound() {
+    let audio = new Audio('../assets/point.wav');
+    audio.volume = 1;
+    audio.play();
+}
+function wing_sound() {
+    let audio = new Audio('../assets/wing.wav');
+    audio.volume = 1;
+    audio.play();
+}
