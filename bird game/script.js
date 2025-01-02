@@ -71,7 +71,7 @@ nameForm.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
 nameForm.style.color = "#fff";
 document.body.appendChild(nameForm);
 
-// Tabela wyników
+// Tabela wyników (bez Supabase)
 const leaderboard = document.createElement("div");
 leaderboard.style.position = "absolute";
 leaderboard.style.left = "20px";
@@ -83,60 +83,44 @@ leaderboard.style.border = "2px solid #000";
 leaderboard.style.borderRadius = "10px";
 leaderboard.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
 leaderboard.style.color = "#fff";
-leaderboard.innerHTML = "<h2>Top 10</h2>";
+leaderboard.innerHTML = "<h2>Top Scores</h2>";
 document.body.appendChild(leaderboard);
 
-// Wczytywanie wyników
+// Funkcja do załadowania wyników (lokalnie)
 function loadLeaderboard() {
-  fetch('scores.php')
-    .then((response) => response.json())
-    .then((scores) => {
-      leaderboard.innerHTML = "<h2>Top 10</h2>";
-      scores.forEach((entry, index) => {
-        const entryElement = document.createElement("div");
-        entryElement.textContent = `${index + 1}. ${entry.name}: ${formatNumber(entry.score)}`;
-        leaderboard.appendChild(entryElement);
-      });
-    })
-    .catch((error) => {
-      console.error("Błąd podczas ładowania wyników:", error);
-      leaderboard.textContent = "Nie udało się załadować wyników.";
-    });
+  const leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
+  leaderboard.innerHTML = "<h2>Top Scores</h2>";
+  leaderboardData.forEach((entry, index) => {
+    const entryElement = document.createElement("div");
+    entryElement.textContent = `${index + 1}. ${entry.name}: ${entry.score}`;
+    leaderboard.appendChild(entryElement);
+  });
 }
 
-
-// Zapisywanie wyniku
+// Funkcja do zapisywania wyniku lokalnie
+// Funkcja do zapisywania wyniku lokalnie
 function saveScore(name, score) {
-  const data = { name, score };
-  fetch('scores.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      if (result.success) {
-        console.log("Wynik zapisany pomyślnie!");
-      } else {
-        console.error("Nie udało się zapisać wyniku.");
-      }
-    })
-    .catch((error) => {
-      console.error("Błąd podczas zapisywania wyniku:", error);
-    });
-}
-
-
-// Formatowanie dużych liczb
-function formatNumber(num) {
-  if (num >= 1000000) {
-    return (num / 1000000).toFixed(1) + "M"; // Zaokrąglenie do milionów
-  } else if (num >= 1000) {
-    return (num / 1000).toFixed(1) + "k"; // Zaokrąglenie do tysięcy
+  let leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
+  
+  // Sprawdzanie, czy użytkownik już jest na liście
+  const existingUserIndex = leaderboardData.findIndex(entry => entry.name === name);
+  
+  if (existingUserIndex !== -1) {
+    // Zaktualizuj wynik użytkownika
+    leaderboardData[existingUserIndex].score = score;
+  } else {
+    // Dodaj nowego użytkownika
+    leaderboardData.push({ name, score });
   }
-  return num; // Zwraca liczbę, jeśli jest mniejsza niż 1000
+  
+  leaderboardData.sort((a, b) => b.score - a.score); // Sortuj wyniki malejąco
+  leaderboardData = leaderboardData.slice(0, 10);  // Ograniczamy do top 10
+  
+  localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
 }
 
+
+// Funkcja gry
 function createPipe() {
   const minTopHeight = 50;
   const maxTopHeight = canvas.height - baseHeight - pipeGap - 50;
@@ -149,7 +133,6 @@ function createPipe() {
   });
 }
 
-// Rysowanie gry
 function render() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(birdImage, bird.x, bird.y, bird.width, bird.height);
@@ -163,10 +146,9 @@ function render() {
 
   ctx.fillStyle = "white";
   ctx.font = "20px Arial";
-  ctx.fillText(`Score: ${formatNumber(score)}`, 10, 30); // Użycie formatNumber w wyświetlaniu wyniku
+  ctx.fillText(`Score: ${score}`, 10, 30);
 }
 
-// Aktualizacja stanu gry
 function update() {
   bird.velocity += bird.gravity;
   bird.y += bird.velocity;
@@ -199,7 +181,6 @@ function update() {
   }
 }
 
-// Pętla gry
 function gameLoop() {
   if (gameRunning) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -209,31 +190,22 @@ function gameLoop() {
   }
 }
 
-// Kontrola ptaka
 function jump() {
   bird.velocity = bird.lift;
 }
 
-// Kończenie gry
 function gameOver() {
   hit_sound();
   gameRunning = false;
   resetButton.style.display = "inline-block";
   swoosh_sound();
   saveScore(userName, score);
-  loadLeaderboard();
 }
 
-// Rozpoczęcie gry
 function startGame() {
   userName = document.getElementById("userName").value.trim();
-  
-  // Sprawdzenie, czy nick nie jest pusty i nie przekracza 10 znaków
   if (userName === "") {
     alert("Please enter a valid name!");
-    return;
-  } else if (userName.length > 10) {
-    alert("Name cannot exceed 10 characters!");
     return;
   }
   nameForm.style.display = "none";
@@ -242,7 +214,6 @@ function startGame() {
 
 document.getElementById("startButton").addEventListener("click", startGame);
 
-// Resetowanie gry
 function resetGame() {
   bird.y = canvas.height / 2;
   bird.velocity = 0;
@@ -254,28 +225,27 @@ function resetGame() {
   gameLoop();
 }
 
-// Kontrola klawiszy
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!gameRunning && userName !== "") {
-      resetGame();  // Uruchomienie gry tylko, jeśli podano nick
+      resetGame();
     } else if (gameRunning) {
       jump();
       wing_sound();
     } else {
-      alert("Please enter your name before starting the game!");  // Powiadomienie o konieczności podania nicku
+      alert("Please enter your name before starting the game!");
     }
   }
 });
 
 canvas.addEventListener("click", () => {
   if (!gameRunning && userName !== "") {
-    resetGame();  // Uruchomienie gry tylko, jeśli podano nick
+    resetGame();
   } else if (gameRunning) {
     jump();
     wing_sound();
   } else {
-    alert("Please enter your name before starting the game!");  // Powiadomienie o konieczności podania nicku
+    alert("Please enter your name before starting the game!");
   }
 });
 
@@ -306,7 +276,7 @@ function swoosh_sound() {
 // Ładowanie tabeli wyników
 loadLeaderboard();
 
-// Dodanie opisu kontrolerów po lewej stronie
+// Dodanie opisu kontrolerów po lewej
 const controlsDescription = document.createElement("div");
 controlsDescription.innerHTML = `
   <h3>Controls:</h3>
@@ -320,4 +290,6 @@ controlsDescription.style.color = "#fff";
 controlsDescription.style.borderRadius = "10px";
 controlsDescription.style.backgroundColor = "#333";
 controlsDescription.style.textAlign = "left";
+controlsDescription.style.padding = "10px";
+controlsDescription.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
 document.body.appendChild(controlsDescription);
