@@ -215,13 +215,20 @@ function gameOver() {
 // Rozpoczęcie gry
 function startGame() {
   userName = document.getElementById("userName").value.trim();
+  
+  // Sprawdzenie, czy nick nie jest pusty i nie przekracza 10 znaków
   if (userName === "") {
     alert("Please enter a valid name!");
     return;
+  } else if (userName.length > 10) {
+    alert("Name cannot exceed 10 characters!");
+    return;
   }
+  
   nameForm.style.display = "none";
   resetGame();
 }
+
 
 document.getElementById("startButton").addEventListener("click", startGame);
 
