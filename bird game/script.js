@@ -224,11 +224,9 @@ function startGame() {
     alert("Name cannot exceed 10 characters!");
     return;
   }
-  
   nameForm.style.display = "none";
   resetGame();
 }
-
 
 document.getElementById("startButton").addEventListener("click", startGame);
 
