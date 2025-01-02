@@ -88,32 +88,44 @@ document.body.appendChild(leaderboard);
 
 // Wczytywanie wyników
 function loadLeaderboard() {
-  const storedScores = JSON.parse(localStorage.getItem("topScores")) || [];
-  leaderboard.innerHTML = "<h2>Top 10</h2>";
-  storedScores
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 10)
-    .forEach((entry, index) => {
-      const entryElement = document.createElement("div");
-      entryElement.textContent = `${index + 1}. ${entry.name}: ${formatNumber(entry.score)}`;
-      leaderboard.appendChild(entryElement);
+  fetch('scores.php')
+    .then((response) => response.json())
+    .then((scores) => {
+      leaderboard.innerHTML = "<h2>Top 10</h2>";
+      scores.forEach((entry, index) => {
+        const entryElement = document.createElement("div");
+        entryElement.textContent = `${index + 1}. ${entry.name}: ${formatNumber(entry.score)}`;
+        leaderboard.appendChild(entryElement);
+      });
+    })
+    .catch((error) => {
+      console.error("Błąd podczas ładowania wyników:", error);
+      leaderboard.textContent = "Nie udało się załadować wyników.";
     });
 }
 
+
 // Zapisywanie wyniku
 function saveScore(name, score) {
-  const storedScores = JSON.parse(localStorage.getItem("topScores")) || [];
-  const existingPlayerIndex = storedScores.findIndex((entry) => entry.name === name);
-  if (existingPlayerIndex > -1) {
-    storedScores[existingPlayerIndex].score = Math.max(storedScores[existingPlayerIndex].score, score);
-  } else {
-    const newEntry = { name, score };
-    storedScores.push(newEntry);
-  }
-  storedScores.sort((a, b) => b.score - a.score);
-  if (storedScores.length > 10) storedScores.pop();
-  localStorage.setItem("topScores", JSON.stringify(storedScores));
+  const data = { name, score };
+  fetch('scores.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        console.log("Wynik zapisany pomyślnie!");
+      } else {
+        console.error("Nie udało się zapisać wyniku.");
+      }
+    })
+    .catch((error) => {
+      console.error("Błąd podczas zapisywania wyniku:", error);
+    });
 }
+
 
 // Formatowanie dużych liczb
 function formatNumber(num) {
