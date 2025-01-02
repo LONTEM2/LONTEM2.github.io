@@ -36,11 +36,16 @@ button
 {
     display: inline-block;
     margin-left: 10px;
+    
 }
 #loadFromJson, #saveToJson
 {
     font-size: large;
     color: var(--czwarty-color);
+    text-align: right;
+    position: relative;
+    right: -20%;
+    
 }
 #square
 {
@@ -65,6 +70,7 @@ button
 {
     text-align: center;
     color: var(--czwarty-color);
+    
 }
 section
 {
