@@ -127,26 +127,39 @@ function render() {
   ctx.fillText(`Score: ${score}`, 10, 30);
 }
 
+
 function update() {
   bird.velocity += bird.gravity;
   bird.y += bird.velocity;
 
+  // Sprawdzanie kolizji z ziemią i górą
   if (bird.y + bird.height >= canvas.height || bird.y <= 0) {
     gameOver();
   }
 
   pipes.forEach((pipe, index) => {
     pipe.x -= pipeSpeed;
+
+    // Kolizja z rurami
+    const pipeTopY = pipe.top - pipeImageTop.height;
+    const pipeBottomY = canvas.height - pipe.bottom;
+
+    // Hitboxy rur z marginesem bezpieczeństwa
     if (
-      bird.x < pipe.x + pipeWidth &&
-      bird.x + bird.width > pipe.x &&
-      (bird.y < pipe.top || bird.y + bird.height > canvas.height - pipe.bottom)
+      bird.x + bird.width > pipe.x && // Kolizja po osi X
+      bird.x < pipe.x + pipeWidth &&  // Kolizja po osi X
+      (bird.y + bird.height > pipeTopY && bird.y < pipeTopY + pipeImageTop.height ||  // Kolizja z górną rurą
+      bird.y + bird.height > pipeBottomY && bird.y < pipeBottomY + pipeImageBottom.height) // Kolizja z dolną rurą
     ) {
       gameOver();
     }
+
+    // Kolizja z ziemią
     if (bird.y + bird.height >= canvas.height - baseHeight) {
       gameOver();
     }
+
+    // Usunięcie rury po przejściu
     if (pipe.x + pipeWidth < 0) {
       pipes.splice(index, 1);
       score++;
@@ -154,10 +167,12 @@ function update() {
     }
   });
 
+  // Dodawanie nowych rur
   if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 200) {
     createPipe();
   }
 }
+
 
 function gameLoop() {
   if (gameRunning) {
