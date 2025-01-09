@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#gameContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    height: 80%;
+}
+
+#leftPanel {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#rightPanel {
+    width: 60%;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+.largeLetter {
+    font-size: 150px;
+    color: #1e90ff;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.largeLetter:hover {
+    transform: scale(1.1);
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#currencyDisplay {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#clickUpgrade, #autoClickers {
+    margin-bottom: 30px;
+}
+
+#menu {
+    display: none;
+    background-color: #444;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#rightPanel {
+    width: 40%;
+    height: 100%; /* Wysokość na 100% */
+    overflow-y: auto; /* Przewijanie w pionie, gdy zawartość przekroczy wysokość panelu */
+    background-color: #333;
+    padding: 10px;
+    color: white;
+}
+/* Styl całej strony */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1c1c1c;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Kontener główny */
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    height: 100vh;
+}
+
+/* Styl lewej sekcji (duża L) */
+#leftPanel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    text-align: center;
+}
+
+#clicker {
+    font-size: 100px;
+    color: #00aaff;
+    cursor: pointer;
+}
+
+#clicks {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+/* Styl prawego panelu z ulepszeniami */
+#rightPanel {
+    width: 40%;
+    height: 100%;
+    overflow-y: auto; /* Przewijanie pionowe */
+    background-color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.upgrade {
+    margin-bottom: 20px;
+    background-color: #444;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.upgrade h3 {
+    margin: 0;
+    color: #fff;
+}
+
+.upgrade p {
+    color: #ccc;
+}
+
+.upgradeButton {
+    background-color: #00aaff;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.upgradeButton:hover {
+    background-color: #0088cc;
+}
+
+/* Styl suwaka */
+#rightPanel::-webkit-scrollbar {
+    width: 10px;
+}
+
+#rightPanel::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+#rightPanel::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+

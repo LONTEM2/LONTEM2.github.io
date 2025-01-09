@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LONTEM Clicker</title>
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7814382747507541"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="leftPanel">
+            <img src="/assets/" alt="L" id="largeL" class="largeLetter" />
+        </div>
+        
+
+        <div id="rightPanel">
+            <div id="currencyDisplay">
+                <p>LONTEM: <span id="lontem">0</span></p>
+                <p>Na sekundę: <span id="lps">0</span> L/s</p>
+            </div>
+            
+            <div id="clickUpgrade">
+                <p><strong>Trening palców</strong></p>
+                <p>Moc kliknięcia: <span id="clickPower">1</span></p>
+                <p>Koszt ulepszenia: <span id="upgradeCost">50</span> LONTEM</p>
+                <button id="upgradeButton">Zwiększ moc kliknięcia</button>
+            </div>
+            
+            <div id="autoClickers">
+                <p><strong>Pomoc kolegi (0,1 L/s)</strong></p>
+                <p>Cena: <span id="helpCost">100</span> LONTEM</p>
+                <button id="buyHelp">Kup pomoc kolegi</button>
+
+                <p><strong>Prosty autoclicer (0,1 L/s)</strong></p>
+                <p>Cena: <span id="easyAutoCost">1000</span> LONTEM</p>
+                <button id="buyEasyAuto">Kup prosty autoclicer</button>
+
+                <p><strong>Średni autoclicer (0,1 L/s)</strong></p>
+                <p>Cena: <span id="mediumAutoCost">2000</span> LONTEM</p>
+                <button id="buyMediumAuto">Kup średni autoclicer</button>
+
+                <p><strong>Zawansowany autoclicer (0,1 L/s)</strong></p>
+                <p>Cena: <span id="advancedAutoCost">5000</span> LONTEM</p>
+                <button id="buyAdvancedAuto">Kup zaawansowany autoclicer</button>
+            </div>
+            
+            <div id="menuSection">
+                <a href="\index.html"><button id="exitButton">Wyjście</button></a>
+            </div>
+
+            <div id="menu" class="hidden">
+                <h2>Menu</h2>
+                <button id="exitButton">Wyjście
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
