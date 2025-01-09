@@ -1,12 +1,48 @@
-body
-{
-    background: linear-gradient(to right, #8277FF, #FF7777);
-    height: 100vh;
-    overflow: hidden;
+body {
+  background: linear-gradient(to right, #2C3E50, #34495E); /* Ciemniejszy gradient */
+  height: 100vh;
+  overflow: hidden;
+  color: #ecf0f1; /* Jasny kolor tekstu dla lepszego kontrastu */
 }
-select
-{
-    background-color: transparent;
-    border-radius: 30px;
 
+/* Styl dla elementu select */
+select {
+  background-color: #34495E; /* Ciemniejsze tło dla selekta */
+  border-radius: 30px;
+  color: #ecf0f1; /* Jasny tekst w selekcie */
+  border: 1px solid #2980B9; /* Jaśniejsza granica w odcieniu niebieskiego */
+  font-size: 16px;
+  padding: 10px 20px;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Cień dla selekta */
 }
+
+/* Styl na hover dla select */
+select:hover {
+  background-color: #1abc9c; /* Zielonkawy odcień przy najechaniu */
+  border-color: #16a085; /* Zmiana koloru obramowania */
+}
+
+/* Styl dla select przy focus */
+select:focus {
+  background-color: #2980B9; /* Zmiana tła przy focussie */
+  border-color: #1d6f8d; /* Ciemniejszy odcień obramowania */
+}
+/* Menu */
+#menu {
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    background-color: #613ce7;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    padding-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Cień dla menu */
+  }
+  
+  #menu:hover {
+    background-color: #5234bd; /* Ciemniejszy czerwony przy najechaniu */
+  }

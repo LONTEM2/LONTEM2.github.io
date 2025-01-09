@@ -1,93 +1,106 @@
-console.log("test"); //sprawdzasz, czy main.js został poprawnie podłączony
-setIdToTiles(); //przypisujesz każdej komórce id
-var tilesPlacement = getRandomPlacement(); //losujesz położenie 32 par na 64 kafelkach
-let validTiles = []; //tablica zawierająca wszystkie poprawnie odsłonięte kafelki
-let isFirstClicked = false; //informuje, czy pierwszy kafelek został już zaznaczony
-let lock = false; //blokuje zaznaczenie na czas sprawdzania poprawności pary
-let firstTileId; //przechowuje id pierwszego zaznaczonego kafelka
-let secondTileId; //przechowuje id drugiego zaznaczonego kafelka
+console.log("test");
+setIdToTiles();
+var tilesPlacement = getRandomPlacement();
+let validTiles = [];
+let isFirstClicked = false;
+let lock = false;
+let firstTileId;
+let secondTileId;
+let gameFinished = false; // Zmienna do sprawdzania, czy gra zakończona
+
+window.onload = function() {
+    startGameTimer(); // Timer zaczyna działać po załadowaniu strony
+};
 
 function setIdToTiles() {
-    let items = document.getElementsByTagName("td"); //pobranie wszystkich elementów <td> z html
+    let items = document.getElementsByTagName("td");
     let id = 0;
-    Array.from(items).forEach(item => { //dla każdego z <td> przypisujemy id np. <td id="0">
-        item.id = id; 
-        id++; // id zwiększa się o 1
-    })
+    Array.from(items).forEach(item => {
+        item.id = id;
+        id++;
+    });
 }
 
 function getRandomPlacement() {
-    let array = []; //tablica przechowująca wylosowane numery
-    let numToChoose = []; // lista numerów do wylosowania
-    for(let i = 1; i <= 32; i++) { //tworzenie 32 par numerów do wylosowania
+    let array = [];
+    let numToChoose = [];
+    for (let i = 1; i <= 32; i++) {
         numToChoose.push(i);
         numToChoose.push(i);
     }
-    for(let i = 0; i < 64; i++) { //proces losowania
-        let chosenNum = getRandomInt(0,numToChoose.length); // wybieranie losowej liczby od 0 do ilości elementów w tablicy
-        array[i] = numToChoose[chosenNum]; //przypisywanie losowego numeru do tablicy
-        numToChoose.splice(chosenNum, 1); //usuwanie wylosowanego numeru z puli
+    for (let i = 0; i < 64; i++) {
+        let chosenNum = getRandomInt(0, numToChoose.length);
+        array[i] = numToChoose[chosenNum];
+        numToChoose.splice(chosenNum, 1);
     }
     return array;
 }
 
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * max) + min; //zwraza losowy numer od min do max -1 
+    return Math.floor(Math.random() * max) + min;
 }
 
 function tileClick(tile) {
-    if(lock) { //blokada stosowana podczas sprawdzania poprawności zaznaczenia pary
+    if (lock || gameFinished) { // Blokada kliknięć, gdy gra się skończy
         return;
     }
-    if(validTiles.includes(tile.id)) { //sprawdzenie, czy element został już poprawnie odkryty
+    if (validTiles.includes(tile.id)) {
         return;
     }
-    if(firstTileId == tile.id) { //sprawdzenie, czy element został już przypisany do pierwszego kafelka
+    if (firstTileId == tile.id) {
         return;
     }
-    tile.classList.add("tileClicked"); //dodawanie nowej klasy (innego tła) do kafelka
-    createImgSrc(tile,parseInt(tile.id));  //dodawanie odpowiedniego zdjecia do kafelka
-    if(isFirstClicked) { //sprawdzenie, czy pierwszy kafelek został już kliknięty
-        secondTileId = tile.id; //przypisanie id kafelka
-        blockAndCheck(); //funkcja blokująca zaznaczanie i sprawdzenie poprawności zaznaczenia
-        isFirstClicked = false; //wyzerowanie opcji
-        ClickMusic()
-    }
-    else {
-        ClickMusic()
-        firstTileId = tile.id; //przypisanie id kafelka
+    tile.classList.add("tileClicked");
+    createImgSrc(tile, parseInt(tile.id));
+    if (isFirstClicked) {
+        secondTileId = tile.id;
+        blockAndCheck();
+        isFirstClicked = false;
+        ClickMusic();
+    } else {
+        ClickMusic();
+        firstTileId = tile.id;
         isFirstClicked = true;
     }
 }
 
 function createImgSrc(ele, num) {
-    let img = document.createElement("img"); //tworzenie <img>
-    img.src = "icons/" + tilesPlacement[num] + ".png"; //przypisywanie src="idObrazka.png"
-    img.style.height = "60px"; //ustalanie wysokości obrazka na 60 pikseli
-    ele.appendChild(img); //dodawania obrazka do kafelka
+    let img = document.createElement("img");
+    img.src = "icons/" + tilesPlacement[num] + ".png";
+    img.style.height = "60px";
+    ele.appendChild(img);
 }
 
 function blockAndCheck() {
-    lock = true; //blokada możliwości zaznaczenia
-    setTimeout(function (){ //w środku piszesz co ma się stać po tym czasie
-        verifyTiles(); //weryfikacja kafelków
-        lock = false; //odblokowanie możliwości zaznaczenia
-        firstTileId = null; //usunięcie id kafelków - bez tego nie mozna zaznaczyc 1 kafelka
+    lock = true;
+    setTimeout(function () {
+        verifyTiles();
+        lock = false;
+        firstTileId = null;
         secondTileId = null;
-      }, 500); //ile czasu funkcja czeka
+    }, 500);
 }
+
 function verifyTiles() {
-    let firstEle = document.getElementById(firstTileId); //pobranie 1 td po id
-    let secondEle = document.getElementById(secondTileId); //pobranie 2 td po id
-    if(tilesPlacement[parseInt(firstTileId)] == tilesPlacement[parseInt(secondTileId)]) { //sprawdzenie, czy obrazy się zgadzają
-        validTiles.push(firstTileId); //dodanie elementów do validTiles
+    let firstEle = document.getElementById(firstTileId);
+    let secondEle = document.getElementById(secondTileId);
+    if (tilesPlacement[parseInt(firstTileId)] == tilesPlacement[parseInt(secondTileId)]) {
+        validTiles.push(firstTileId);
         validTiles.push(secondTileId);
+        checkGameCompletion(); // Sprawdzenie, czy wszystkie kafelki zostały odkryte
+    } else {
+        firstEle.classList.remove("tileClicked");
+        secondEle.classList.remove("tileClicked");
+        firstEle.removeChild(firstEle.children.item(0));
+        secondEle.removeChild(secondEle.children.item(0));
     }
-    else {
-        firstEle.classList.remove("tileClicked"); //usunięcie klasy zapewniającej tło 
-        secondEle.classList.remove("tileClicked"); //usunięcie klasy zapewniającej tło 
-        firstEle.removeChild(firstEle.children.item(0)); //usunięcie obrazka z komórki
-        secondEle.removeChild(secondEle.children.item(0)); //usunięcie obrazka z komórki
+}
+
+function checkGameCompletion() {
+    if (validTiles.length === 64) { // Jeśli wszystkie kafelki zostały odkryte
+        gameFinished = true; // Zakończ grę
+        stopGameTimer(); // Zatrzymaj timer
+        alert("Gratulacje! Ukończyłeś grę w czasie: "+document.getElementById('gameTimer').textContent);
     }
 }
 
@@ -95,4 +108,29 @@ function ClickMusic() {
     var audio = new Audio('/assets/click.mp3');
     audio.volume = 0.03;
     audio.play();
+}
+
+let startTime;
+let gameTime = 0;
+
+function startGameTimer() {
+    startTime = Date.now();
+    setInterval(updateGameTimer, 1000);
+}
+
+function stopGameTimer() {
+    gameFinished = true; // Zatrzymanie timera
+    clearInterval(updateGameTimer); // Zatrzymanie aktualizacji timera
+}
+
+function updateGameTimer() {
+    gameTime = Math.floor((Date.now() - startTime) / 1000);
+    let hours = Math.floor(gameTime / 3600);
+    let minutes = Math.floor((gameTime % 3600) / 60);
+    let seconds = gameTime % 60;
+    document.getElementById('gameTimer').textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+}
+
+function padZero(time) {
+    return time < 10 ? '0' + time : time;
 }

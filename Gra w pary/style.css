@@ -1,46 +1,78 @@
-table {
-    background-color: lightblue;
-    margin: 0 auto;
-    margin-top: 90px;
-    
-}
-td {
-    width: 65px;
-    height: 65px;
-    border: 1px dotted blue;
-    text-align: center;
-}
-td:hover {
-    background-color: #8eb8c6;
-}
-td:active {
-    background-color: #5597ad;
-}
-.tileClicked {
-    background-color: #73cae7;
-}
-.tileClicked:hover {
-    background-color: #60abc4;
-}
-.tileClicked:active {
-    background-color: #5597ad;
-}
-body
-{
-    background: linear-gradient(to right, #8277FF, #FF7777);
+body {
+    background: linear-gradient(to right, #2C3E50, #34495E); /* Ciemniejszy gradient */
     height: 100vh;
     overflow: hidden;
-}
-#menu
-{
+    color: #ecf0f1; /* Jasny kolor tekstu, aby kontrastował z tłem */
+  }
+  
+  /* Tabela */
+  table {
+    background-color: #34495E; /* Ciemniejszy odcień niebieskiego */
+    margin: 0 auto;
+    margin-top: 90px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Cień dla tabeli */
+  }
+  
+  /* Komórki tabeli */
+  td {
+    width: 65px;
+    height: 65px;
+    border: 1px dotted #2980B9; /* Jaśniejszy odcień niebieskiego */
+    text-align: center;
+    background-color: #2C3E50; /* Ciemniejsze tło komórek */
+    color: #ecf0f1; /* Jasny kolor tekstu */
+  }
+  
+  td:hover {
+    background-color: #1abc9c; /* Zielonkawy odcień podczas najechania */
+  }
+  
+  td:active {
+    background-color: #16a085; /* Zmiana koloru podczas kliknięcia */
+  }
+  
+  /* Styl dla klikniętych elementów */
+  .tileClicked {
+    background-color: #3498db; /* Niebieski odcień dla klikniętych elementów */
+  }
+  
+  .tileClicked:hover {
+    background-color: #2980b9; /* Ciemniejszy niebieski podczas najechania */
+  }
+  
+  .tileClicked:active {
+    background-color: #1d6f8d; /* Jeszcze ciemniejszy niebieski podczas kliknięcia */
+  }
+  
+  /* Menu */
+  #menu {
     position: fixed;
     top: 2%;
     right: 2%;
-    background-color: lightpink;
+    background-color: #613ce7;
     width: 100px;
     height: 50px;
     text-align: center;
     border-radius: 10px;
     color: white;
     padding-top: 10px;
-}
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Cień dla menu */
+  }
+  
+  #menu:hover {
+    background-color: #5234bd; /* Ciemniejszy czerwony przy najechaniu */
+  }
+
+  #gameTimer {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    color: white;
+    font-family: Arial, sans-serif;
+    z-index: 10;
+  }
+  
+  
