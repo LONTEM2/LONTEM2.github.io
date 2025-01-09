@@ -32,57 +32,40 @@ const bird = {
 // Rury
 const pipes = [];
 const pipeWidth = 52;
-const pipeGap = 150;
+let pipeGap = 150;
+let pipeSpeed = 2;
+
 let score = 0;
 let gameRunning = false;
 let userName = "";
+let difficulty = "easy"; // Domyślnie ustawione na "easy"
 
 // Tworzenie przycisku resetu
 const resetButton = document.createElement("button");
+resetButton.id = "resetButton";
 resetButton.innerText = "Reset Game";
-resetButton.style.position = "absolute";
-resetButton.style.top = "50%";
-resetButton.style.left = "50%";
-resetButton.style.transform = "translate(-50%, -50%)";
-resetButton.style.fontSize = "20px";
-resetButton.style.padding = "10px 20px";
-resetButton.style.backgroundColor = "#ffcc00";
-resetButton.style.border = "none";
-resetButton.style.cursor = "pointer";
-resetButton.style.display = "none";
 document.body.appendChild(resetButton);
 
 // Formularz do wpisania nicku
 const nameForm = document.createElement("div");
+nameForm.id = "nameForm";
 nameForm.innerHTML = `
   <label for="userName">Enter your name:</label>
-  <input type="text" id="userName" />
+  <input type="text" id="userName" maxlength="7" />
   <button id="startButton">Start Game</button>
+  <label style="margin-left: 20px;">
+    Difficulty:
+    <select id="difficultySelect">
+      <option value="easy">Easy</option>
+      <option value="hard">Hard</option>
+    </select>
+  </label>
 `;
-nameForm.style.position = "absolute";
-nameForm.style.top = "10px";
-nameForm.style.right = "10px";
-nameForm.style.fontSize = "20px";
-nameForm.style.textAlign = "center";
-nameForm.style.backgroundColor = "#222";
-nameForm.style.padding = "20px";
-nameForm.style.borderRadius = "10px";
-nameForm.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
-nameForm.style.color = "#fff";
 document.body.appendChild(nameForm);
 
-// Tabela wyników (bez Supabase)
+// Tabela wyników
 const leaderboard = document.createElement("div");
-leaderboard.style.position = "absolute";
-leaderboard.style.left = "20px";
-leaderboard.style.top = "150px";
-leaderboard.style.backgroundColor = "#333";
-leaderboard.style.padding = "15px";
-leaderboard.style.fontSize = "18px";
-leaderboard.style.border = "2px solid #000";
-leaderboard.style.borderRadius = "10px";
-leaderboard.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
-leaderboard.style.color = "#fff";
+leaderboard.id = "leaderboard";
 leaderboard.innerHTML = "<h2>Top Scores</h2>";
 document.body.appendChild(leaderboard);
 
@@ -92,33 +75,28 @@ function loadLeaderboard() {
   leaderboard.innerHTML = "<h2>Top Scores</h2>";
   leaderboardData.forEach((entry, index) => {
     const entryElement = document.createElement("div");
-    entryElement.textContent = `${index + 1}. ${entry.name}: ${entry.score}`;
+    entryElement.textContent = `${index + 1}. ${entry.name}: ${entry.score} (${entry.difficulty})`;
     leaderboard.appendChild(entryElement);
   });
 }
 
 // Funkcja do zapisywania wyniku lokalnie
-// Funkcja do zapisywania wyniku lokalnie
-function saveScore(name, score) {
+function saveScore(name, score, difficulty) {
   let leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
   
-  // Sprawdzanie, czy użytkownik już jest na liście
-  const existingUserIndex = leaderboardData.findIndex(entry => entry.name === name);
+  const existingUserIndex = leaderboardData.findIndex(entry => entry.name === name && entry.difficulty === difficulty);
   
   if (existingUserIndex !== -1) {
-    // Zaktualizuj wynik użytkownika
-    leaderboardData[existingUserIndex].score = score;
+    leaderboardData[existingUserIndex].score = Math.max(leaderboardData[existingUserIndex].score, score);
   } else {
-    // Dodaj nowego użytkownika
-    leaderboardData.push({ name, score });
+    leaderboardData.push({ name, score, difficulty });
   }
   
-  leaderboardData.sort((a, b) => b.score - a.score); // Sortuj wyniki malejąco
-  leaderboardData = leaderboardData.slice(0, 10);  // Ograniczamy do top 10
+  leaderboardData.sort((a, b) => b.score - a.score);
+  leaderboardData = leaderboardData.slice(0, 10);
   
   localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
 }
-
 
 // Funkcja gry
 function createPipe() {
@@ -158,7 +136,7 @@ function update() {
   }
 
   pipes.forEach((pipe, index) => {
-    pipe.x -= 2;
+    pipe.x -= pipeSpeed;
     if (
       bird.x < pipe.x + pipeWidth &&
       bird.x + bird.width > pipe.x &&
@@ -199,7 +177,7 @@ function gameOver() {
   gameRunning = false;
   resetButton.style.display = "inline-block";
   swoosh_sound();
-  saveScore(userName, score);
+  saveScore(userName, score, difficulty);
 }
 
 function startGame() {
@@ -208,6 +186,21 @@ function startGame() {
     alert("Please enter a valid name!");
     return;
   }
+
+  difficulty = document.getElementById("difficultySelect").value; // Pobranie wybranego poziomu trudności
+
+  if (difficulty === "hard") {
+    pipeGap = 130;
+    pipeSpeed = 4;
+    bird.lift = -7;
+    bird.gravity = 0.3;
+  } else {
+    pipeGap = 150;
+    pipeSpeed = 2;
+    bird.gravity = 0.2;
+    bird.lift = -6;
+  }
+
   nameForm.style.display = "none";
   resetGame();
 }
@@ -215,6 +208,7 @@ function startGame() {
 document.getElementById("startButton").addEventListener("click", startGame);
 
 function resetGame() {
+  gameRunning = false;
   bird.y = canvas.height / 2;
   bird.velocity = 0;
   pipes.length = 0;
@@ -251,6 +245,12 @@ canvas.addEventListener("click", () => {
 
 resetButton.addEventListener("click", resetGame);
 
+// Usunięcie zaznaczenia tekstu po kliknięciu
+canvas.addEventListener("mousedown", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+});
+
 // Dźwięki
 function point_sound() {
   let audio = new Audio("../assets/point.wav");
@@ -259,37 +259,30 @@ function point_sound() {
 }
 function wing_sound() {
   let audio = new Audio("../assets/wing.wav");
-  audio.volume = 1;
-  audio.play();
-}
-function hit_sound() {
-  let audio = new Audio("../assets/hit.wav");
-  audio.volume = 0.2;
+  audio.volume = 0.3;
   audio.play();
 }
 function swoosh_sound() {
   let audio = new Audio("../assets/swoosh.wav");
-  audio.volume = 1;
+  audio.volume = 0.5;
+  audio.play();
+}
+function hit_sound() {
+  let audio = new Audio("../assets/hit.wav");
+  audio.volume = 0.6;
   audio.play();
 }
 
-// Ładowanie tabeli wyników
-loadLeaderboard();
-
-// Dodanie opisu kontrolerów po lewej
+// Opis kontrolerów
 const controlsDescription = document.createElement("div");
 controlsDescription.innerHTML = `
   <h3>Controls:</h3>
   <p><strong>Space</strong> or <strong>Click</strong> to make the bird jump</p>
 `;
-controlsDescription.style.position = "absolute";
-controlsDescription.style.left = "20px";
-controlsDescription.style.top = "10px";
-controlsDescription.style.fontSize = "16px";
-controlsDescription.style.color = "#fff";
-controlsDescription.style.borderRadius = "10px";
-controlsDescription.style.backgroundColor = "#333";
-controlsDescription.style.textAlign = "left";
-controlsDescription.style.padding = "10px";
-controlsDescription.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+controlsDescription.id = "controlsDescription";
 document.body.appendChild(controlsDescription);
+
+// Inicjalizacja
+loadLeaderboard();
+
+
