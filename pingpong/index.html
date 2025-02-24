@@ -10,13 +10,11 @@
 
     <div id="admin-panel">
         <h2>Panel administratora</h2>
-        <form id="add-player-form">
-            <input type="text" id="player-name" placeholder="Imię i nazwisko" required>
-            <input type="number" id="player-elo" placeholder="ELO" required>
-            <button type="submit">Dodaj gracza</button>
-        </form>
+        <input type="file" id="load-json" accept="application/json">
+        <button id="save-json">Zapisz JSON</button>
         
         <form id="game-history-form">
+            <br>
             <input type="text" id="game-player1" placeholder="Gracz 1" required>
             <input type="text" id="game-player2" placeholder="Gracz 2" required>
             <input type="number" id="game-score1" placeholder="Wynik gracza 1" required>
@@ -53,6 +51,6 @@
     </main>
     <a href="\index.html" ><button id="menu">Menu</button></a>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

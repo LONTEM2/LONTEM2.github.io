@@ -1,85 +1,120 @@
-// script.js
+// Poprawiony script.js
 const rankingTable = document.querySelector('#ranking-table tbody');
 const addPlayerForm = document.getElementById('add-player-form');
 const gameHistoryForm = document.getElementById('game-history-form');
 const gameHistoryList = document.getElementById('game-history-list');
+const loadJsonInput = document.getElementById('load-json');
+const saveJsonButton = document.getElementById('save-json');
 
-let players = JSON.parse(localStorage.getItem('players')) || [];
-let gameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
+let players = [];
+let gameHistory = [];
 
 const adminPanel = document.getElementById('admin-panel');
 adminPanel.style.display = 'none';
-
-const adminLoginBtn = document.getElementById('admin-login');
 const encodedPassword = 'WFNLZGZsc0FGa3Nsc2ZsZHNTbHNMc2xzYXM=';
 
-adminLoginBtn.addEventListener('click', () => {
-    const password = prompt('Podaj hasło administratora:');
-    const decodedPassword = atob(encodedPassword);
+const adminLoginBtn = document.getElementById('admin-login');
+if (adminLoginBtn) {
+    adminLoginBtn.addEventListener('click', () => {
+        const password = prompt('Podaj hasło administratora:');
+        const decodedPassword = atob(encodedPassword);
+        if (password === decodedPassword) {
+            adminPanel.style.display = 'block';
+        } else {
+            alert('Błędne hasło!');
+        }
+    });
+} else {
+    console.error('Przycisk logowania nie znaleziony! Sprawdź ID: admin-login');
+}
 
-    if (password === decodedPassword) {
-        adminPanel.style.display = 'block'; 
-    } else {
-        alert('Błędne hasło!');
+
+// Poprawione wczytywanie pliku JSON
+loadJsonInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const data = JSON.parse(event.target.result);
+                players = data.players || [];
+                gameHistory = data.gameHistory || [];
+                updateRanking();
+                renderHistory();
+            } catch (error) {
+                alert('Błąd wczytywania pliku JSON! Sprawdź format danych.');
+            }
+        };
+        reader.readAsText(file);
     }
 });
 
-addPlayerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('player-name').value.trim();
-    const elo = parseInt(document.getElementById('player-elo').value, 10);
-
-    if (players.some(player => player.name === name)) {
-        alert('Gracz o tej nazwie już istnieje!');
-        return;
-    }
-
-    if (name && !isNaN(elo)) {
-        players.push({ name, elo });
-        saveData();
-        updateRanking();
-        addPlayerForm.reset();
-    } else {
-        alert('Podaj poprawne dane gracza!');
-    }
+saveJsonButton.addEventListener('click', () => {
+    const data = JSON.stringify({ players, gameHistory }, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ranking.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 });
 
-gameHistoryForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+gameHistoryForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
     const player1 = document.getElementById('game-player1').value.trim();
     const player2 = document.getElementById('game-player2').value.trim();
     const score1 = parseInt(document.getElementById('game-score1').value, 10);
     const score2 = parseInt(document.getElementById('game-score2').value, 10);
 
-    if (player1 && player2 && validScore(score1, score2)) {
-        const [eloChange1, eloChange2] = calculateElo(player1, player2, score1, score2);
-        const p1 = players.find(p => p.name === player1);
-        const p2 = players.find(p => p.name === player2);
-
-        if (p1 && p2) {
-            p1.elo += eloChange1;
-            p2.elo += eloChange2;
-
-            gameHistory.unshift({ player1, player2, score1, score2, eloChange1, eloChange2 });
-            saveData();
-            updateRanking();
-            renderHistory();
-        } else {
-            alert('Nie znaleziono jednego z graczy.');
-        }
-    } else {
-        alert('Nieprawidłowy wynik! (Musi być do 11 i przewaga 2 pkt)');
+    if (!player1 || !player2 || isNaN(score1) || isNaN(score2)) {
+        alert('Wypełnij wszystkie pola poprawnie!');
+        return;
     }
+
+    if (!validScore(score1, score2)) {
+        alert('Nieprawidłowy wynik! Jeden z graczy musi osiągnąć minimum 11 punktów i mieć przewagę co najmniej 2.');
+        return;
+    }
+
+    const [eloChange1, eloChange2] = calculateElo(player1, player2, score1, score2);
+
+    const gameRecord = {
+        player1,
+        player2,
+        score1,
+        score2,
+        eloChange1,
+        eloChange2,
+    };
+
+    gameHistory.push(gameRecord);
+
+    const p1 = players.find(p => p.name === player1);
+    const p2 = players.find(p => p.name === player2);
+
+    if (p1) p1.elo += eloChange1;
+    if (p2) p2.elo += eloChange2;
+
+    updateRanking();
+    renderHistory();
+
+    gameHistoryForm.reset();
 });
 
+
+// Funkcja do obliczania ELO
 function calculateElo(player1, player2, score1, score2) {
     const p1 = players.find(p => p.name === player1);
     const p2 = players.find(p => p.name === player2);
-    const scoreDiff = Math.abs(score1 - score2);
+    if (!p1 || !p2) return [0, 0];
 
     const eloDiff = p2.elo - p1.elo;
     const kFactor = 32;
-    
+
     const expectedScore1 = 1 / (1 + Math.pow(10, eloDiff / 400));
     const expectedScore2 = 1 - expectedScore1;
 
@@ -92,10 +127,12 @@ function calculateElo(player1, player2, score1, score2) {
     return [eloChange1, eloChange2];
 }
 
+// Walidacja wyniku
 function validScore(score1, score2) {
     return (score1 >= 11 || score2 >= 11) && Math.abs(score1 - score2) >= 2;
 }
 
+// Aktualizacja rankingu
 function updateRanking() {
     rankingTable.innerHTML = '';
     players.sort((a, b) => b.elo - a.elo);
@@ -114,6 +151,7 @@ function updateRanking() {
     });
 }
 
+// Renderowanie historii gier
 function renderHistory() {
     gameHistoryList.innerHTML = '';
     gameHistory.forEach(game => {
@@ -123,10 +161,7 @@ function renderHistory() {
     });
 }
 
-function saveData() {
-    localStorage.setItem('players', JSON.stringify(players));
-    localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
-}
-
 updateRanking();
 renderHistory();
+
+// Teraz powinno działać — sprawdź i daj znać! 🚀
