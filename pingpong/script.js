@@ -101,9 +101,14 @@ gameHistoryForm.addEventListener('submit', (event) => {
 
     updateRanking();
     renderHistory();
+    saveToLocalStorage();
 
     gameHistoryForm.reset();
 });
+function saveToLocalStorage() {
+    localStorage.setItem('players', JSON.stringify(players));
+    localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+}
 
 
 // Funkcja do obliczania ELO
@@ -160,6 +165,20 @@ function renderHistory() {
         gameHistoryList.appendChild(item);
     });
 }
+function loadFromLocalStorage() {
+    const storedPlayers = localStorage.getItem('players');
+    const storedHistory = localStorage.getItem('gameHistory');
+
+    if (storedPlayers && storedHistory) {
+        players = JSON.parse(storedPlayers);
+        gameHistory = JSON.parse(storedHistory);
+        updateRanking();
+        renderHistory();
+    }
+}
+
+loadFromLocalStorage();
+
 
 updateRanking();
 renderHistory();
