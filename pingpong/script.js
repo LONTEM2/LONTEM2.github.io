@@ -1,9 +1,7 @@
-// Poprawiony script.js
 const rankingTable = document.querySelector('#ranking-table tbody');
 const addPlayerForm = document.getElementById('add-player-form');
 const gameHistoryForm = document.getElementById('game-history-form');
 const gameHistoryList = document.getElementById('game-history-list');
-const loadJsonInput = document.getElementById('load-json');
 const saveJsonButton = document.getElementById('save-json');
 
 let players = [];
@@ -28,26 +26,21 @@ if (adminLoginBtn) {
     console.error('Przycisk logowania nie znaleziony! Sprawdź ID: admin-login');
 }
 
-
-// Poprawione wczytywanie pliku JSON
-loadJsonInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            try {
-                const data = JSON.parse(event.target.result);
-                players = data.players || [];
-                gameHistory = data.gameHistory || [];
-                updateRanking();
-                renderHistory();
-            } catch (error) {
-                alert('Błąd wczytywania pliku JSON! Sprawdź format danych.');
-            }
-        };
-        reader.readAsText(file);
-    }
-});
+// Funkcja do automatycznego ładowania danych JSON
+function loadJsonData() {
+    fetch('ranking.json')
+        .then(response => {
+            if (!response.ok) throw new Error('Błąd ładowania pliku JSON');
+            return response.json();
+        })
+        .then(data => {
+            players = data.players || [];
+            gameHistory = data.gameHistory || [];
+            updateRanking();
+            renderHistory();
+        })
+        .catch(error => console.error('Błąd:', error));
+}
 
 saveJsonButton.addEventListener('click', () => {
     const data = JSON.stringify({ players, gameHistory }, null, 2);
@@ -76,21 +69,13 @@ gameHistoryForm.addEventListener('submit', (event) => {
     }
 
     if (!validScore(score1, score2)) {
-        alert('Nieprawidłowy wynik! Jeden z graczy musi osiągnąć minimum 11 punktów i mieć przewagę co najmniej 2.');
+        alert('Nieprawidłowy wynik! Jeden z graczy musi mieć przewagę co najmniej 2 punktów.');
         return;
     }
 
     const [eloChange1, eloChange2] = calculateElo(player1, player2, score1, score2);
 
-    const gameRecord = {
-        player1,
-        player2,
-        score1,
-        score2,
-        eloChange1,
-        eloChange2,
-    };
-
+    const gameRecord = { player1, player2, score1, score2, eloChange1, eloChange2 };
     gameHistory.push(gameRecord);
 
     const p1 = players.find(p => p.name === player1);
@@ -101,17 +86,9 @@ gameHistoryForm.addEventListener('submit', (event) => {
 
     updateRanking();
     renderHistory();
-    saveToLocalStorage();
-
     gameHistoryForm.reset();
 });
-function saveToLocalStorage() {
-    localStorage.setItem('players', JSON.stringify(players));
-    localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
-}
 
-
-// Funkcja do obliczania ELO
 function calculateElo(player1, player2, score1, score2) {
     const p1 = players.find(p => p.name === player1);
     const p2 = players.find(p => p.name === player2);
@@ -132,21 +109,16 @@ function calculateElo(player1, player2, score1, score2) {
     return [eloChange1, eloChange2];
 }
 
-// Walidacja wyniku
 function validScore(score1, score2) {
     return (score1 >= 11 || score2 >= 11) && Math.abs(score1 - score2) >= 2;
 }
 
-// Aktualizacja rankingu
 function updateRanking() {
     rankingTable.innerHTML = '';
     players.sort((a, b) => b.elo - a.elo);
 
     players.forEach((player, index) => {
         const row = document.createElement('tr');
-        if (index < 6) row.classList.add('blue-rank');
-        else if (index < 10) row.classList.add('orange-rank');
-
         row.innerHTML = `
             <td>${index + 1}</td>
             <td>${player.name}</td>
@@ -156,7 +128,6 @@ function updateRanking() {
     });
 }
 
-// Renderowanie historii gier
 function renderHistory() {
     gameHistoryList.innerHTML = '';
     gameHistory.forEach(game => {
@@ -165,22 +136,6 @@ function renderHistory() {
         gameHistoryList.appendChild(item);
     });
 }
-function loadFromLocalStorage() {
-    const storedPlayers = localStorage.getItem('players');
-    const storedHistory = localStorage.getItem('gameHistory');
 
-    if (storedPlayers && storedHistory) {
-        players = JSON.parse(storedPlayers);
-        gameHistory = JSON.parse(storedHistory);
-        updateRanking();
-        renderHistory();
-    }
-}
-
-loadFromLocalStorage();
-
-
-updateRanking();
-renderHistory();
-
-// Teraz powinno działać — sprawdź i daj znać! 🚀
+// Automatyczne ładowanie danych JSON przy starcie
+loadJsonData();

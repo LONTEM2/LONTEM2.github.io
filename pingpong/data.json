@@ -1,0 +1,17 @@
+{
+    "players": [
+        { "name": "Artur", "elo": 500 },
+        { "name": "Misiek", "elo": 500 },
+        { "name": "Cypis", "elo": 500 },
+        { "name": "Mateusz", "elo": 500 },
+        { "name": "Czołgista", "elo": 500 },
+        { "name": "Witek", "elo": 500 },
+        { "name": "Kacper Korona", "elo": 500 },
+        { "name": "Gabryś", "elo": 500 },
+        { "name": "Kiwi", "elo": 500 },
+        { "name": "Bartek R", "elo": 500 },
+        { "name": "Szymon D", "elo": 500 },
+        { "name": "Robert", "elo": 500 }
+    ],
+    "gameHistory": []
+}
