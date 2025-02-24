@@ -8,10 +8,16 @@
 </head>
 <body>
 
-    <div id="admin-panel">
+    <div id="admin-panel" style="display: none;">
         <h2>Panel administratora</h2>
+        
+        <!-- Wczytaj JSON -->
+        <input type="file" id="load-json" accept="application/json">
+        
+        <!-- Zapisz JSON -->
         <button id="save-json">Zapisz JSON</button>
         
+        <!-- Formularz dodawania wyniku -->
         <form id="game-history-form">
             <br>
             <input type="text" id="game-player1" placeholder="Gracz 1" required>
@@ -48,6 +54,9 @@
             </div>
         </div>
     </main>
+
+    <!-- Przycisk menu -->
+    <a href="index.html"><button id="menu">Menu</button></a>
 
     <script src="script.js" defer></script>
 </body>
