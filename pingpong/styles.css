@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#ranking-section {
+    width: 60%;
+}
+
+#game-history {
+    width: 35%;
+    background: #f1f1f1;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+tr:hover {
+    background: #ddd;
+    cursor: pointer;
+}
+
+.blue-rank {
+    border-left: 6px solid #1e90ff;
+}
+
+.orange-rank {
+    border-left: 6px solid #ff5733;
+}
+
+#admin-panel {
+    background: #eee;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+#menu
+{
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    background-color: var(--czwarty-color);
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+}
+#admin-login
+{
+    position: fixed;
+    top: 2%;
+    right: 10%;
+    background-color: var(--czwarty-color);
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+}

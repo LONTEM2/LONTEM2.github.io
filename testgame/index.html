@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kółko i Krzyżyk Online</title>
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: linear-gradient(135deg, #6a11cb, #2575fc); color: white; }
+        .container { max-width: 600px; margin: auto; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; }
+        .game-board { display: grid; grid-template-columns: repeat(3, 100px); gap: 5px; justify-content: center; margin-top: 20px; }
+        .cell { width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; font-size: 2em; background: white; color: black; border-radius: 5px; cursor: pointer; }
+        .player-info { display: flex; justify-content: space-between; margin-top: 20px; }
+        .highlight { background: yellow; padding: 5px; border-radius: 5px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kółko i Krzyżyk Online</h1>
+        <div id="login-screen">
+            <input type="text" id="nickname" placeholder="Podaj swój nick"><br>
+            <button onclick="login()">Zaloguj</button>
+        </div>
+        <div id="menu-screen" class="hidden">
+            <h2>Witaj, <span id="player-name"></span></h2>
+            <button onclick="startOfflineGame()">Graj Offline</button>
+            <button onclick="showOnlineMenu()">Graj Online</button>
+        </div>
+        <div id="online-menu" class="hidden">
+            <button onclick="createRoom()">Stwórz Pokój</button>
+            <input type="text" id="room-code" placeholder="Kod pokoju">
+            <button onclick="joinRoom()">Dołącz</button>
+        </div>
+        <div id="game-screen" class="hidden">
+            <div class="player-info">
+                <div id="player1" class="highlight"></div>
+                <div id="player2"></div>
+            </div>
+            <div class="game-board" id="board"></div>
+            <h2 id="winner-message" class="hidden"></h2>
+        </div>
+    </div>
+
+    <script>
+        let playerName = "";
+        let isMyTurn = false;
+        let symbol = "";
+        let peer, conn;
+        let boardState = Array(9).fill(null);
+
+        function login() {
+            playerName = document.getElementById('nickname').value;
+            if (playerName) {
+                document.getElementById('player-name').innerText = playerName;
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('menu-screen').classList.remove('hidden');
+            }
+        }
+
+        function startOfflineGame() {
+            document.getElementById('menu-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            setupBoard();
+        }
+
+        function showOnlineMenu() {
+            document.getElementById('menu-screen').classList.add('hidden');
+            document.getElementById('online-menu').classList.remove('hidden');
+        }
+
+        function createRoom() {
+            peer = new Peer();
+            peer.on('open', id => {
+                alert("Kod pokoju: " + id);
+                document.getElementById('online-menu').classList.add('hidden');
+                document.getElementById('game-screen').classList.remove('hidden');
+                setupBoard();
+                symbol = "X";
+                document.getElementById('player1').innerText = playerName + " (X)";
+                peer.on('connection', connection => {
+                    conn = connection;
+                    conn.on('data', handleData);
+                    isMyTurn = true;
+                });
+            });
+        }
+
+        function joinRoom() {
+            const roomCode = document.getElementById('room-code').value;
+            peer = new Peer();
+            conn = peer.connect(roomCode);
+            conn.on('open', () => {
+                document.getElementById('online-menu').classList.add('hidden');
+                document.getElementById('game-screen').classList.remove('hidden');
+                setupBoard();
+                symbol = "O";
+                document.getElementById('player2').innerText = playerName + " (O)";
+                conn.on('data', handleData);
+            });
+        }
+
+        function setupBoard() {
+            let board = document.getElementById('board');
+            board.innerHTML = '';
+            boardState.fill(null);
+            for (let i = 0; i < 9; i++) {
+                let cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.index = i;
+                cell.addEventListener('click', handleMove);
+                board.appendChild(cell);
+            }
+        }
+
+        function handleMove(event) {
+            let index = event.target.dataset.index;
+            if (!isMyTurn || boardState[index]) return;
+            boardState[index] = symbol;
+            event.target.innerText = symbol;
+            isMyTurn = false;
+            conn.send({ move: index, symbol: symbol });
+            checkWinner();
+        }
+
+        function handleData(data) {
+            document.querySelector(`[data-index='${data.move}']`).innerText = data.symbol;
+            boardState[data.move] = data.symbol;
+            isMyTurn = true;
+            checkWinner();
+        }
+
+        function checkWinner() {
+            const winningCombinations = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+            for (let combo of winningCombinations) {
+                const [a, b, c] = combo;
+                if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+                    document.getElementById('winner-message').innerText = `Wygrywa: ${boardState[a]}`;
+                    document.getElementById('winner-message').classList.remove('hidden');
+                    return;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

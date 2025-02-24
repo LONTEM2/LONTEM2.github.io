@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking ELO Ping Ponga</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="admin-panel">
+        <h2>Panel administratora</h2>
+        <form id="add-player-form">
+            <input type="text" id="player-name" placeholder="Imię i nazwisko" required>
+            <input type="number" id="player-elo" placeholder="ELO" required>
+            <button type="submit">Dodaj gracza</button>
+        </form>
+        
+        <form id="game-history-form">
+            <input type="text" id="game-player1" placeholder="Gracz 1" required>
+            <input type="text" id="game-player2" placeholder="Gracz 2" required>
+            <input type="number" id="game-score1" placeholder="Wynik gracza 1" required>
+            <input type="number" id="game-score2" placeholder="Wynik gracza 2" required>
+            <button type="submit">Dodaj wynik</button>
+        </form>
+    </div>
+
+    <header>
+        <h1>Ranking ELO Ping Ponga</h1>
+        <button id="admin-login">Logowanie administratora</button>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="ranking-section">
+                <table id="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Miejsce</th>
+                            <th>Imię i Nazwisko</th>
+                            <th>ELO</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div id="game-history">
+                <h3>Historia gier</h3>
+                <ul id="game-history-list"></ul>
+            </div>
+        </div>
+    </main>
+    <a href="\index.html" ><button id="menu">Menu</button></a>
+
+    <script src="script.js"></script>
+</body>
+</html>
