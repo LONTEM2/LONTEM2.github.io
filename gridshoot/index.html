@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gridshoot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="menu">
+        <h2 id="settings-title">Ustawienia</h2>
+        <form id="settings-form">
+            <label for="language" id="language-label">Język:</label>
+            <select id="language">
+                <option value="pl">Polski</option>
+                <option value="en">English</option>
+            </select>
+            
+            <label for="time" id="time-label">Czas rozgrywki:</label>
+            <select id="time">
+                <option value="30">30s</option>
+                <option value="60">1min</option>
+                <option value="unlimited">Nieograniczony</option>
+            </select>
+            
+            <label for="shape" id="shape-label">Kształt:</label>
+            <select id="shape">
+                <option value="square">Kwadrat</option>
+                <option value="circle">Koło</option>
+            </select>
+            
+            <label for="size" id="size-label">Wielkość kulki:</label>
+            <select id="size">
+                <option value="mini">Mini</option>
+                <option value="small">Mała</option>
+                <option value="medium">Średnia</option>
+                <option value="large">Duża</option>
+            </select>
+
+            <label for="area-size" id="area-size-label">Wielkość planszy:</label>
+            <select id="area-size">
+                <option value="small">Mała</option>
+                <option value="medium">Średnia</option>
+                <option value="large">Duża</option>
+            </select>
+            
+            <label for="balls" id="balls-label">Ilość kulek:</label>
+            <select id="balls">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            
+            <button type="button" id="apply-settings">Zastosuj</button>
+        </form>
+    </div>
+    
+    <div id="game-container">
+        <div id="header">
+            <div id="score">Punkty: 0</div>
+            <div id="timer">Czas: ∞</div>
+        </div>
+        <div id="balls-container"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
