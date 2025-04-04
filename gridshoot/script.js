@@ -113,6 +113,7 @@ function moveBalls() {
 }
 
 function moveBall(ball) {
+    point_sound();
     const container = document.getElementById("balls-container");
     const containerRect = container.getBoundingClientRect();
 
@@ -150,3 +151,9 @@ function endGame() {
 
 // Initial position of the balls
 moveBalls();
+
+function point_sound() {
+    let audio = new Audio("pop.mp3");
+    audio.volume = 0.03;
+    audio.play();
+  }
