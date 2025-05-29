@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Casino</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/favicon-32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>🐻 Casino – gra o gamblingu</h1>
+    <div id="balance">Saldo: <span id="coins">200</span> żetonów</div>
+    <div class="betting">
+        <input type="number" id="bet-amount" min="1" max="200" value="10" placeholder="Kwota zakładu">
+        <select id="bet-color">
+            <option value="green">Zielone (x10)</option>
+            <option value="red">Czerwone (x2)</option>
+            <option value="black">Czarne (x2)</option>
+        </select>
+        <button id="spin-btn">Zakreć!</button>
+        <a href="\index.html"><button style="float:right; margin-left:25px;">Menu</button></a>
+        <button id="free-zetony-btn" style="float:right; margin-left: 5px;">Darmowe żetony</button>
+    </div>
+    <div class="roulette-bar-wrapper">
+        <div class="arrow-bar">▼</div>
+        <canvas id="roulette-bar" width="600" height="60"></canvas>
+    </div>
+    <div id="result"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
