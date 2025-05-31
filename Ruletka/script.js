@@ -1,3 +1,15 @@
+// Function to block the possibility of interfering with JS code in the source page
+(function() {
+    'use strict';
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+        if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I") || (e.ctrlKey && e.shiftKey && e.key === "J")) {
+            return false;
+        }
+    };
+})();
+
 const canvas = document.getElementById('roulette-bar');
 const ctx = canvas.getContext('2d');
 const spinBtn = document.getElementById('spin-btn');
@@ -10,6 +22,10 @@ const resultDiv = document.getElementById('result');
 const COINS_STORAGE_KEY = 'roulette_zetony';
 const RESCUE_TIME_KEY = 'roulette_last_rescue_time';
 const RESCUE_USED_KEY = 'roulette_rescue_used';
+
+// NEW: Keys for bet settings
+const BET_AMOUNT_KEY = 'roulette_bet_amount';
+const BET_COLOR_KEY = 'roulette_bet_color';
 
 let zetony = 200;
 let lastRescueTime = 0;
@@ -28,6 +44,20 @@ if (localStorage.getItem(RESCUE_TIME_KEY) !== null) {
 // Load rescueUsed from localStorage
 if (localStorage.getItem(RESCUE_USED_KEY) !== null) {
     rescueUsed = localStorage.getItem(RESCUE_USED_KEY) === 'true';
+}
+
+// Load bet amount and color from localStorage (NEW)
+if (localStorage.getItem(BET_AMOUNT_KEY) !== null) {
+    const storedBet = parseInt(localStorage.getItem(BET_AMOUNT_KEY));
+    if (!isNaN(storedBet) && storedBet > 0) {
+        betAmountInput.value = storedBet;
+    }
+}
+if (localStorage.getItem(BET_COLOR_KEY) !== null) {
+    const storedColor = localStorage.getItem(BET_COLOR_KEY);
+    if (storedColor === "green" || storedColor === "red" || storedColor === "black") {
+        betColorSelect.value = storedColor;
+    }
 }
 
 coinsSpan.textContent = zetony;
@@ -91,6 +121,36 @@ drawBar(0, 0);
 let spinning = false;
 let sectorOffset = 0;
 let pxOffset = 0;
+
+// F5/refresh block during animation
+window.addEventListener('keydown', function(e) {
+    if (spinning && (e.key === "F5" || (e.ctrlKey && e.key === "r") || (e.metaKey && e.key === "r"))) {
+        e.preventDefault();
+        resultDiv.innerHTML = `<span style="color:orange">Nie możesz odświeżyć strony podczas zakręcania ruletki!</span>`;
+    }
+});
+window.addEventListener('beforeunload', function(e) {
+    if (spinning) {
+        // Some browsers show a generic message; custom messages are ignored in modern browsers
+        e.preventDefault();
+        e.returnValue = '';
+    }
+    // Always save state before unload
+    localStorage.setItem(COINS_STORAGE_KEY, zetony);
+    localStorage.setItem(RESCUE_TIME_KEY, lastRescueTime);
+    localStorage.setItem(RESCUE_USED_KEY, rescueUsed ? 'true' : 'false');
+    // Save bet settings
+    localStorage.setItem(BET_AMOUNT_KEY, betAmountInput.value);
+    localStorage.setItem(BET_COLOR_KEY, betColorSelect.value);
+});
+
+// NEW: Save bet settings on change
+betAmountInput.addEventListener('input', function() {
+    localStorage.setItem(BET_AMOUNT_KEY, betAmountInput.value);
+});
+betColorSelect.addEventListener('change', function() {
+    localStorage.setItem(BET_COLOR_KEY, betColorSelect.value);
+});
 
 function updateCoinsDisplay() {
     coinsSpan.textContent = zetony;
@@ -170,6 +230,10 @@ spinBtn.onclick = async function () {
         return;
     }
     let chosenColor = betColorSelect.value;
+    // Save bet settings (NEW)
+    localStorage.setItem(BET_AMOUNT_KEY, betAmountInput.value);
+    localStorage.setItem(BET_COLOR_KEY, betColorSelect.value);
+
     spinning = true;
     spinBtn.disabled = true;
     freeZetonyBtn.disabled = true;
