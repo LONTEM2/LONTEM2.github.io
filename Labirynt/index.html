@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Labirynt</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../assets/ikona.ico" type="image/x-icon">
+</head>
+<body>
+    <h1>Labirynt</h1>
+    <div id="startScreen">
+        <h2>Wybierz poziom trudności</h2>
+        <button class="difficultyBtn" data-diff="easy">Łatwy</button>
+        <button class="difficultyBtn" data-diff="medium">Średni</button>
+        <button class="difficultyBtn" data-diff="hard">Trudny</button>
+        <a href="\index.html"><button class="difficultyBtn" >Menu</button></a>
+    </div>
+    <div id="gameContainer" class="hidden">
+        <canvas id="gameCanvas" width="1000" height="1000"></canvas>
+        <div id="infoPanel">
+            <p>Monety: <span id="coinsCollected">0</span>/<span id="coinsTotal">0</span></p>
+            <p>Czas: <span id="timer">0</span> s</p>
+            <button id="restartBtn">Restart</button>
+        </div>
+    </div>
+    <div id="endScreen" class="hidden">
+        <h2>Wygrałeś!</h2>
+        <p>Czas: <span id="finalTime"></span> s</p>
+        <button id="playAgainBtn">Zagraj ponownie</button>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
